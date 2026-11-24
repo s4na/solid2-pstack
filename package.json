@@ -1,0 +1,44 @@
+{
+  "name": "solid2-pstack",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "storybook": "storybook dev --port 6006",
+    "build:storybook": "storybook build",
+    "test": "vitest run",
+    "test:e2e": "vite build && storybook build && playwright test",
+    "verify:model": "vitest run --project node tests/notification-model.test.ts"
+  },
+  "dependencies": {
+    "@solidjs/web": "2.0.0",
+    "@stylexjs/stylex": "0.19.2",
+    "@ui-sdk/core": "0.1.0-beta.7",
+    "@ui-sdk/solid": "0.1.0-beta.7",
+    "solid-js": "2.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@solidjs/vite-plugin": "3.0.0-next.57",
+    "@storybook/addon-a11y": "10.6.7",
+    "@stylexjs/unplugin": "0.19.2",
+    "@types/node": "^24.0.0",
+    "@vitest/browser-playwright": "5.1.0",
+    "axe-core": "4.14.1",
+    "fast-check": "4.10.0",
+    "playwright": "1.65.1",
+    "storybook": "10.6.7",
+    "storybook-solidjs-vite": "10.7.4",
+    "tla-ts": "0.0.10",
+    "typescript": "6.0.3",
+    "vite": "8.3.8",
+    "vitest": "5.1.0",
+    "vite-plugin-solid": "npm:@solidjs/vite-plugin@3.0.0-next.57"
+  }
+}
