@@ -63,6 +63,8 @@ apm install --frozen
 
 APM は pstack の選択した Skill を上流のコミットに固定し、このプロジェクトの Skill とともに `.agents/skills/` へ配置します。プロジェクトの Skill の正本は `.apm/skills/` です。Codex で PR を作る際は `$opening-a-pr` を呼び出します。 [Opening a PR](.apm/skills/opening-a-pr/SKILL.md)・[検証 Skill](.apm/skills/verify-solid2-pstack/SKILL.md)
 
-## 写真
+## 画面素材とデザイン
 
 画面の写真は ImageGen で作成したローカル素材です。工房写真は「深緑の空間に並ぶ陶器と窓からの自然光」、商品写真は「緑のマグ、琥珀色のキャンドル、オリーブ色のリネン、生成りの皿を4分割で撮影」という指示で生成しました。 [工房写真](public/market/hero.jpg)・[商品写真](public/market/catalog.jpg)
+
+画面の操作部品は [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) を参考にしています。Geist Sans v1.9.2 は同梱した [SIL Open Font License](public/market/fonts/OFL.txt) に従います。

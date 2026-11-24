@@ -45,11 +45,14 @@ test("別々のお店で商品を公開し、購入者がまとめて注文で�
 
   const cart = page.getByRole("button", { name: /^カート/ });
   await expect(cart).toContainText("2点");
-  await page.getByRole("button", { name: `${plate}をカートに入れる` }).click();
+  const plus = page.getByRole("button", { name: `${plate}をカートに入れる` });
+  await plus.click();
+  await expect(plus).toHaveText("✓");
   await expect(cart).toBeInViewport();
   await expect(cart).toContainText("3点");
   await expect(cart).toContainText("￥5,500");
   await expect(page.locator(".cart-dock").getByText(`${plate}を追加しました（カート内 2点）。`)).toBeVisible();
+  await expect(plus).toHaveText("＋");
 
   await cart.click();
   const drawer = page.getByRole("dialog");

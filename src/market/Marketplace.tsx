@@ -1,7 +1,7 @@
 import {
   Dialog, DialogBackdrop, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger,
 } from "@ui-sdk/solid/dialog";
-import { createSignal, For, Match, Show, Switch } from "solid-js";
+import { createSignal, For, Match, onCleanup, Show, Switch } from "solid-js";
 import {
   api, categories, categoryKeys, errorMessage, field, orderNumber, RequestError, yen,
   type CartRow, type Catalog, type Category, type Order, type Product, type Role, type SellerDashboard, type Session,
@@ -49,6 +49,9 @@ export function Marketplace() {
   const [cartError, setCartError] = createSignal("");
   const [announcement, setAnnouncement] = createSignal("");
   const [pending, setPending] = createSignal(false);
+  const [addedProduct, setAddedProduct] = createSignal<number | null>(null);
+  let addedTimer: number | undefined;
+  onCleanup(() => window.clearTimeout(addedTimer));
   let previousPurchase: { signature: string; requestKey: string } | undefined;
 
   const cartCount = () => Object.values(cart()).reduce((count, quantity) => count + quantity, 0);
@@ -148,10 +151,10 @@ export function Marketplace() {
 
   function setQuantity(product: Product, quantity: number) {
     const existing = cart()[product.id] ?? 0;
-    if (quantity > existing && (quantity > product.stock || quantity > quantityLimit)) return;
+    if (quantity > existing && (quantity > product.stock || quantity > quantityLimit)) return false;
     if (!existing && quantity && Object.keys(cart()).length >= cartLimit) {
       setAnnouncement("カートに入れられる商品は40種類までです。");
-      return;
+      return false;
     }
     const next = { ...cart() };
     if (quantity < 1) delete next[product.id];
@@ -161,6 +164,14 @@ export function Marketplace() {
     setAnnouncement(quantity > existing
       ? `${product.name}を追加しました（カート内 ${quantity}点）。`
       : `${product.name}の数量を更新しました。`);
+    return true;
+  }
+
+  function addProduct(product: Product) {
+    if (!setQuantity(product, (cart()[product.id] ?? 0) + 1)) return;
+    window.clearTimeout(addedTimer);
+    setAddedProduct(product.id);
+    addedTimer = window.setTimeout(() => setAddedProduct(null), 750);
   }
 
   function addSelected() {
@@ -425,8 +436,11 @@ export function Marketplace() {
                             <strong>{yen(product.price)}</strong>
                             <Show when={product.stock > 0} fallback={<span class="out-of-stock">在庫なし</span>}>
                               <button class="add-button" type="button" aria-label={`${product.name}をカートに入れる`}
+                                data-added={addedProduct() === product.id ? "true" : undefined}
                                 disabled={(cart()[product.id] ?? 0) >= Math.min(quantityLimit, product.stock)}
-                                onClick={() => setQuantity(product, (cart()[product.id] ?? 0) + 1)}>＋</button>
+                                onClick={() => addProduct(product)}>
+                                <span aria-hidden="true">{addedProduct() === product.id ? "✓" : "＋"}</span>
+                              </button>
                             </Show>
                           </div>
                         </div>
