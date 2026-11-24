@@ -207,7 +207,7 @@ a { color: inherit; }
 .hero-kicker { color: #bdbdbd; font-size: 13px; font-weight: 750; letter-spacing: 0.09em; }
 .hero-copy p:not(.hero-kicker) { color: #e2e2e2; font-size: clamp(13px, 1.4vw, 16px); line-height: 1.85; }
 .hero-art { position: relative; background: var(--brand-hover); }
-.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1); }
+.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-action {
   display: inline-flex;
   align-items: center;
@@ -298,7 +298,6 @@ a { color: inherit; }
   aspect-ratio: 1;
   transform: translateY(-50%);
   background: url("/market/catalog-cobalt.jpg") 0 0 / 200% 200% no-repeat;
-  filter: grayscale(1);
 }
 .product-image.candle::before { background-position: 100% 0; }
 .product-image.linen::before { background-position: 0 100%; }
