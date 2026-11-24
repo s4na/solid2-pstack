@@ -1,3 +1,4 @@
 # 機能一覧
 
-- [通知設定](notifications.md)
+- [よりみち商店街](marketplace.md)
+- [通知設定サンプル](notifications.md)

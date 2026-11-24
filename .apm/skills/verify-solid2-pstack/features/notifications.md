@@ -6,7 +6,7 @@
 
 ## 画面の開き方
 
-アプリのルートを開く。Storybook では Settings / Notifications の Off と On を選ぶ。
+アプリの `/notification-demo` を開く。Storybook では Settings / Notifications の Off と On を選ぶ。
 
 ## ブラウザでの操作
 

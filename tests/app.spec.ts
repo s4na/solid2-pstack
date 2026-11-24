@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("キーボードだけで通知をオンにしてからリセットできる", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/notification-demo");
   const toggle = page.getByRole("button", { name: "通知を受け取る" });
   const reset = page.getByRole("button", { name: "リセット" });
   const status = page.getByRole("status");
@@ -21,7 +21,7 @@ test("キーボードだけで通知をオンにしてからリセットでき�
 });
 
 test("ページを開き直すと通知は初期状態に戻る", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/notification-demo");
   const toggle = page.getByRole("button", { name: "通知を受け取る" });
 
   await toggle.click();

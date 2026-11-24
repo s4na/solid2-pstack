@@ -14,7 +14,8 @@
     "build:storybook": "storybook build",
     "test": "vitest run",
     "test:e2e": "vite build && storybook build && playwright test",
-    "verify:model": "vitest run --project node tests/notification-model.test.ts"
+    "verify:model": "vitest run --project node tests/notification-model.test.ts",
+    "test:market": "playwright test --config=playwright.market.config.ts"
   },
   "dependencies": {
     "@solidjs/web": "2.0.0",

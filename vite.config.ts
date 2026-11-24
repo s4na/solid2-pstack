@@ -7,5 +7,6 @@ export default defineConfig({
     stylex.vite({ runtimeInjection: false }),
     solid(),
   ],
+  server: { proxy: { "/api": `http://127.0.0.1:${process.env.MARKET_PORT ?? "8088"}` } },
   optimizeDeps: { exclude: ["@ui-sdk/core"] },
 });

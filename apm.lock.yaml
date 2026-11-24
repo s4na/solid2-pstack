@@ -456,7 +456,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:28ba1084077bed3e80a951de2eb6c71a299bc44052a5eaaa03f5d68cc741798f
+  content_hash: sha256:9a46fc383f2c2e06f92491418f3bb5c8a659a8ecf2ca6214524783d538036ede
 - kind: project-relative
   target: codex
   value: .agents/skills/verify-solid2-pstack/features/README.md
@@ -465,7 +465,16 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:95f6695fcfd9d3380406e059f962d2fec778c1719ecafd87cc8588a2184aa533
+  content_hash: sha256:4a11c68794fe8344d563ffa4a5e0299319863c5e7f66919d30436ed35008d372
+- kind: project-relative
+  target: codex
+  value: .agents/skills/verify-solid2-pstack/features/marketplace.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:ab6930fd1854e8ba1c219c64b1b91903f9b11f060fb227f3529cc94b9a31a56d
 - kind: project-relative
   target: codex
   value: .agents/skills/verify-solid2-pstack/features/notifications.md
@@ -474,16 +483,18 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:67635b0d7ea5fdb21b4de4bf4afef41c9496fc9f7cf47cca3036eaac860ad378
+  content_hash: sha256:bb70254c634ed110988f5fd90848dcb908f74241399e36e7646d638282c53bea
 local_deployed_files:
 - .agents/skills/opening-a-pr
 - .agents/skills/opening-a-pr/SKILL.md
 - .agents/skills/verify-solid2-pstack
 - .agents/skills/verify-solid2-pstack/SKILL.md
 - .agents/skills/verify-solid2-pstack/features/README.md
+- .agents/skills/verify-solid2-pstack/features/marketplace.md
 - .agents/skills/verify-solid2-pstack/features/notifications.md
 local_deployed_file_hashes:
   .agents/skills/opening-a-pr/SKILL.md: sha256:e73f488cfae6fb12eff203524f832b01f0bd3ea8eee50159e6ec94b5741e29b8
-  .agents/skills/verify-solid2-pstack/SKILL.md: sha256:28ba1084077bed3e80a951de2eb6c71a299bc44052a5eaaa03f5d68cc741798f
-  .agents/skills/verify-solid2-pstack/features/README.md: sha256:95f6695fcfd9d3380406e059f962d2fec778c1719ecafd87cc8588a2184aa533
-  .agents/skills/verify-solid2-pstack/features/notifications.md: sha256:67635b0d7ea5fdb21b4de4bf4afef41c9496fc9f7cf47cca3036eaac860ad378
+  .agents/skills/verify-solid2-pstack/SKILL.md: sha256:9a46fc383f2c2e06f92491418f3bb5c8a659a8ecf2ca6214524783d538036ede
+  .agents/skills/verify-solid2-pstack/features/README.md: sha256:4a11c68794fe8344d563ffa4a5e0299319863c5e7f66919d30436ed35008d372
+  .agents/skills/verify-solid2-pstack/features/marketplace.md: sha256:ab6930fd1854e8ba1c219c64b1b91903f9b11f060fb227f3529cc94b9a31a56d
+  .agents/skills/verify-solid2-pstack/features/notifications.md: sha256:bb70254c634ed110988f5fd90848dcb908f74241399e36e7646d638282c53bea
