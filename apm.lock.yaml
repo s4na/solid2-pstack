@@ -1,0 +1,489 @@
+lockfile_version: '4'
+apm_version: 0.38.0
+manifest_targets:
+- codex
+dependencies:
+- repo_url: cursor/plugins
+  name: correct
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/correct
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/correct
+  - .agents/skills/correct/LICENSE
+  - .agents/skills/correct/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/correct/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/correct/SKILL.md: sha256:e347045d00c967a0b831ef883cc6ac79d21329aa10b5968637df95de7febf0ba
+  content_hash: sha256:cf2dd7020417f054f1425f0892b2b071a22edb72491e9843c4dd9f0e98da536f
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: create-formal-verification-skill
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/create-formal-verification-skill
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/create-formal-verification-skill
+  - .agents/skills/create-formal-verification-skill/LICENSE
+  - .agents/skills/create-formal-verification-skill/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/create-formal-verification-skill/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/create-formal-verification-skill/SKILL.md: sha256:30ef0ac27612ecd16fdc081112113221d673053cef3f8603db11932193861211
+  content_hash: sha256:1284e3dfa3f3a06690c918d52517832bc5ce14d0b082ad024e8f2a36b63810dc
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: create-verification-skill
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/create-verification-skill
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/create-verification-skill
+  - .agents/skills/create-verification-skill/LICENSE
+  - .agents/skills/create-verification-skill/SKILL.md
+  - .agents/skills/create-verification-skill/references/feature-map-example/README.md
+  - .agents/skills/create-verification-skill/references/feature-map-example/create-note.md
+  - .agents/skills/create-verification-skill/references/feature-map-example/search.md
+  deployed_file_hashes:
+    .agents/skills/create-verification-skill/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/create-verification-skill/SKILL.md: sha256:d353973547bf8ad8977eca645f4cd4feaed0d32f4b43d1448f906b0a76c4d694
+    .agents/skills/create-verification-skill/references/feature-map-example/README.md: sha256:cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba
+    .agents/skills/create-verification-skill/references/feature-map-example/create-note.md: sha256:644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7
+    .agents/skills/create-verification-skill/references/feature-map-example/search.md: sha256:6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823
+  content_hash: sha256:669cc75d749a3f60c222ee5295e4d3b0c3a58a63a2e6be9ebf44be1a03f7939e
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: maintain-formal-verification-skill
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/maintain-formal-verification-skill
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/maintain-formal-verification-skill
+  - .agents/skills/maintain-formal-verification-skill/LICENSE
+  - .agents/skills/maintain-formal-verification-skill/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/maintain-formal-verification-skill/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/maintain-formal-verification-skill/SKILL.md: sha256:0c96f54293542d3818b68754562b338073958781a9684454611dca37592e2d2c
+  content_hash: sha256:dfea3fde24e7747781d110a9da2115412ae1c1e64a5a58c6c42ae3a47b6279cc
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: maintain-verification-skill
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/maintain-verification-skill
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/maintain-verification-skill
+  - .agents/skills/maintain-verification-skill/LICENSE
+  - .agents/skills/maintain-verification-skill/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/maintain-verification-skill/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/maintain-verification-skill/SKILL.md: sha256:515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8
+  content_hash: sha256:ec564fcd06f8af7b0e95cb945107ee8b5702fcfdfdf6360c07a1c27c284f23bd
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: principle-prove-it-works
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/principle-prove-it-works
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/principle-prove-it-works
+  - .agents/skills/principle-prove-it-works/LICENSE
+  - .agents/skills/principle-prove-it-works/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/principle-prove-it-works/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/principle-prove-it-works/SKILL.md: sha256:3d6c482e341974cfcb8d19ebf66fb1d4274d8673af35e36d3c231a6aa9e03f25
+  content_hash: sha256:9e9bd5152516dfe17cd6a5298857f77b538994ab20eeb3f96bf6d89ef6ed32b3
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: principle-test-behavior-not-implementation
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/principle-test-behavior-not-implementation
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/principle-test-behavior-not-implementation
+  - .agents/skills/principle-test-behavior-not-implementation/LICENSE
+  - .agents/skills/principle-test-behavior-not-implementation/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/principle-test-behavior-not-implementation/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/principle-test-behavior-not-implementation/SKILL.md: sha256:42afc1a2c7176363b6410cfde06a9fd3e96f5022ba86bdb8de4838ad65c2442d
+  content_hash: sha256:efa3211999ef72d82dde691a29839a9c58013ce38f9b3594fad6128fe1639c52
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- repo_url: cursor/plugins
+  name: reflect
+  host: github.com
+  resolved_commit: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  resolved_ref: 005d8f6e8ec057b738adcd08a08b30db0478402d
+  version: unknown
+  virtual_path: pstack/skills/reflect
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/reflect
+  - .agents/skills/reflect/LICENSE
+  - .agents/skills/reflect/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/reflect/LICENSE: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+    .agents/skills/reflect/SKILL.md: sha256:6f6952f91514dc86257830da93a446c732a1af906f6acd5e5783dc587a29031e
+  content_hash: sha256:6333fd8754f5ddadeb5f040b95ec08da2b15b64deb9b55cd412f5721bd4af252
+  carried_licenses:
+  - path: LICENSE
+    source: pstack/LICENSE
+    hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+deployments:
+- kind: project-relative
+  target: codex
+  value: .agents/skills/correct
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/correct
+  active_owner: cursor/plugins/pstack/skills/correct
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/correct/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/correct
+  active_owner: cursor/plugins/pstack/skills/correct
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/correct/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/correct
+  active_owner: cursor/plugins/pstack/skills/correct
+  content_hash: sha256:e347045d00c967a0b831ef883cc6ac79d21329aa10b5968637df95de7febf0ba
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-formal-verification-skill
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-formal-verification-skill
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-formal-verification-skill/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-formal-verification-skill
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-formal-verification-skill/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-formal-verification-skill
+  content_hash: sha256:30ef0ac27612ecd16fdc081112113221d673053cef3f8603db11932193861211
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: sha256:d353973547bf8ad8977eca645f4cd4feaed0d32f4b43d1448f906b0a76c4d694
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill/references/feature-map-example/README.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: sha256:cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill/references/feature-map-example/create-note.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: sha256:644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7
+- kind: project-relative
+  target: codex
+  value: .agents/skills/create-verification-skill/references/feature-map-example/search.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/create-verification-skill
+  active_owner: cursor/plugins/pstack/skills/create-verification-skill
+  content_hash: sha256:6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-formal-verification-skill
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-formal-verification-skill/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-formal-verification-skill/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-formal-verification-skill
+  content_hash: sha256:0c96f54293542d3818b68754562b338073958781a9684454611dca37592e2d2c
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-verification-skill
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-verification-skill
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-verification-skill/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-verification-skill
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/maintain-verification-skill/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/maintain-verification-skill
+  active_owner: cursor/plugins/pstack/skills/maintain-verification-skill
+  content_hash: sha256:515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8
+- kind: project-relative
+  target: codex
+  value: .agents/skills/opening-a-pr
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/opening-a-pr/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:e73f488cfae6fb12eff203524f832b01f0bd3ea8eee50159e6ec94b5741e29b8
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-prove-it-works
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-prove-it-works
+  active_owner: cursor/plugins/pstack/skills/principle-prove-it-works
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-prove-it-works/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-prove-it-works
+  active_owner: cursor/plugins/pstack/skills/principle-prove-it-works
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-prove-it-works/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-prove-it-works
+  active_owner: cursor/plugins/pstack/skills/principle-prove-it-works
+  content_hash: sha256:3d6c482e341974cfcb8d19ebf66fb1d4274d8673af35e36d3c231a6aa9e03f25
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-test-behavior-not-implementation
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  active_owner: cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-test-behavior-not-implementation/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  active_owner: cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/principle-test-behavior-not-implementation/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  active_owner: cursor/plugins/pstack/skills/principle-test-behavior-not-implementation
+  content_hash: sha256:42afc1a2c7176363b6410cfde06a9fd3e96f5022ba86bdb8de4838ad65c2442d
+- kind: project-relative
+  target: codex
+  value: .agents/skills/reflect
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/reflect
+  active_owner: cursor/plugins/pstack/skills/reflect
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/reflect/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/reflect
+  active_owner: cursor/plugins/pstack/skills/reflect
+  content_hash: sha256:bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/reflect/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - cursor/plugins/pstack/skills/reflect
+  active_owner: cursor/plugins/pstack/skills/reflect
+  content_hash: sha256:6f6952f91514dc86257830da93a446c732a1af906f6acd5e5783dc587a29031e
+- kind: project-relative
+  target: codex
+  value: .agents/skills/verify-solid2-pstack
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/verify-solid2-pstack/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:28ba1084077bed3e80a951de2eb6c71a299bc44052a5eaaa03f5d68cc741798f
+- kind: project-relative
+  target: codex
+  value: .agents/skills/verify-solid2-pstack/features/README.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:95f6695fcfd9d3380406e059f962d2fec778c1719ecafd87cc8588a2184aa533
+- kind: project-relative
+  target: codex
+  value: .agents/skills/verify-solid2-pstack/features/notifications.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:67635b0d7ea5fdb21b4de4bf4afef41c9496fc9f7cf47cca3036eaac860ad378
+local_deployed_files:
+- .agents/skills/opening-a-pr
+- .agents/skills/opening-a-pr/SKILL.md
+- .agents/skills/verify-solid2-pstack
+- .agents/skills/verify-solid2-pstack/SKILL.md
+- .agents/skills/verify-solid2-pstack/features/README.md
+- .agents/skills/verify-solid2-pstack/features/notifications.md
+local_deployed_file_hashes:
+  .agents/skills/opening-a-pr/SKILL.md: sha256:e73f488cfae6fb12eff203524f832b01f0bd3ea8eee50159e6ec94b5741e29b8
+  .agents/skills/verify-solid2-pstack/SKILL.md: sha256:28ba1084077bed3e80a951de2eb6c71a299bc44052a5eaaa03f5d68cc741798f
+  .agents/skills/verify-solid2-pstack/features/README.md: sha256:95f6695fcfd9d3380406e059f962d2fec778c1719ecafd87cc8588a2184aa533
+  .agents/skills/verify-solid2-pstack/features/notifications.md: sha256:67635b0d7ea5fdb21b4de4bf4afef41c9496fc9f7cf47cca3036eaac860ad378

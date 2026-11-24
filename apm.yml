@@ -1,0 +1,15 @@
+name: solid2-pstack
+version: 0.1.0
+includes: auto
+targets:
+  - codex
+dependencies:
+  apm:
+    - cursor/plugins/pstack/skills/create-verification-skill#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/maintain-verification-skill#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/create-formal-verification-skill#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/maintain-formal-verification-skill#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/principle-prove-it-works#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/principle-test-behavior-not-implementation#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/correct#005d8f6e8ec057b738adcd08a08b30db0478402d
+    - cursor/plugins/pstack/skills/reflect#005d8f6e8ec057b738adcd08a08b30db0478402d
