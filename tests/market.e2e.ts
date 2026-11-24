@@ -43,9 +43,16 @@ test("別々のお店で商品を公開し、購入者がまとめて注文で�
   await page.getByRole("checkbox", { name: `${plate}を選択` }).check();
   await page.getByRole("button", { name: "選択した商品をカートに入れる（2）" }).click();
 
-  await page.getByRole("button", { name: /^カート/ }).click();
+  const cart = page.getByRole("button", { name: /^カート/ });
+  await expect(cart).toContainText("2点");
+  await page.getByRole("button", { name: `${plate}をカートに入れる` }).click();
+  await expect(cart).toBeInViewport();
+  await expect(cart).toContainText("3点");
+  await expect(cart).toContainText("￥5,500");
+  await expect(page.locator(".cart-dock").getByText(`${plate}を追加しました（カート内 2点）。`)).toBeVisible();
+
+  await cart.click();
   const drawer = page.getByRole("dialog");
-  await drawer.getByRole("button", { name: `${plate}の数量を増やす` }).click();
   await drawer.getByRole("button", { name: "購入手続きへ" }).click();
   await expect(drawer.getByRole("heading", { name: "購入者アカウント" })).toBeVisible();
   await signUp(drawer, "購入者", `検証購入者 ${token}`, `buyer-${token}@example.test`);

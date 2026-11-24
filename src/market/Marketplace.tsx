@@ -158,7 +158,9 @@ export function Marketplace() {
     else next[product.id] = quantity;
     persistCart(next);
     setCartError("");
-    setAnnouncement(quantity > existing ? `${product.name}をカートに追加しました。` : `${product.name}の数量を更新しました。`);
+    setAnnouncement(quantity > existing
+      ? `${product.name}を追加しました（カート内 ${quantity}点）。`
+      : `${product.name}の数量を更新しました。`);
   }
 
   function addSelected() {
@@ -187,6 +189,7 @@ export function Marketplace() {
       setCheckout(false);
       setReceipt(null);
       setCartError("");
+      setAnnouncement("");
     }
     setCartOpen(open);
   }
@@ -249,10 +252,20 @@ export function Marketplace() {
                 onClick={() => navigate("orders")}>注文履歴</button>
               <button type="button" class="header-link seller-link" aria-current={screen() === "seller" ? "page" : undefined}
                 onClick={() => navigate("seller")}>出店者ページ</button>
-              <DialogTrigger class="cart-trigger"><span class="bag-icon" aria-hidden="true" />カート<span class="cart-count">{cartCount()}</span></DialogTrigger>
             </div>
           </div>
         </header>
+        <div class="cart-dock">
+          <Show when={announcement()}>
+            <p class="cart-dock-feedback" aria-hidden="true">{announcement()}</p>
+          </Show>
+          <DialogTrigger class="cart-trigger">
+            <span class="bag-icon" aria-hidden="true" />
+            <span>カート</span>
+            <span class="cart-count">{cartCount()}点</span>
+            <strong class="cart-dock-total">{yen(total())}</strong>
+          </DialogTrigger>
+        </div>
         <DialogBackdrop class="cart-backdrop" />
         <DialogContent class="cart-dialog">
           <div class="drawer-heading">
@@ -422,7 +435,6 @@ export function Marketplace() {
                   </For>
                 </div>
               </Show>
-              <Show when={announcement()}><p class="catalog-message" aria-hidden="true">{announcement()}</p></Show>
             </section>
           </Match>
           <Match when={screen() === "stores"}>
