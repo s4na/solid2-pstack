@@ -65,6 +65,6 @@ APM は pstack の選択した Skill を上流のコミットに固定し、こ�
 
 ## 画面素材とデザイン
 
-画面の写真は ImageGen で作成したローカル素材です。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](public/market/hero-cobalt.jpg)・[商品写真](public/market/catalog-cobalt.jpg)
+画面の写真は ImageGen で作成したローカル素材です。ショップ内ではモノクロで表示します。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](public/market/hero-cobalt.jpg)・[商品写真](public/market/catalog-cobalt.jpg)
 
 画面の操作部品は [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) を参考にしています。Geist Sans v1.9.2 は同梱した [SIL Open Font License](public/market/fonts/OFL.txt) に従います。
