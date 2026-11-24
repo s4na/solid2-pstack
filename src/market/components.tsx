@@ -43,9 +43,9 @@ const actions = stylex.create({
     minHeight: "var(--control-height)",
     padding: "10px 16px",
     borderRadius: "var(--control-radius)",
-    border: "1px solid var(--ink)",
-    backgroundColor: { default: "var(--ink)", ":hover": "var(--primary-hover)", ":active": "var(--primary-pressed)" },
-    color: "var(--paper)",
+    border: "1px solid var(--brand)",
+    backgroundColor: { default: "var(--brand)", ":hover": "var(--brand-hover)", ":active": "var(--brand-pressed)" },
+    color: "var(--brand-on)",
     fontFamily: "inherit",
     fontSize: "14px",
     fontWeight: 700,
@@ -54,7 +54,7 @@ const actions = stylex.create({
   },
   quiet: {
     backgroundColor: { default: "var(--paper)", ":hover": "var(--hover)", ":active": "var(--pressed)" },
-    color: "var(--ink)",
+    color: "var(--brand-pressed)",
     borderColor: "var(--control-line)",
   },
   light: {

@@ -385,7 +385,7 @@ export function Marketplace() {
                   <p>器、香り、暮らしの道具。<br />小さなお店から、お気に入りを見つける。</p>
                   <a class="hero-action" href="#products">商品を探す<span aria-hidden="true">↘</span></a>
                 </div>
-                <div class="hero-art"><img src="/market/hero.jpg" alt="" fetchpriority="high" /></div>
+                <div class="hero-art"><img src="/market/hero-cobalt.jpg" alt="" fetchpriority="high" /></div>
               </section>
             </Show>
             <section class="catalog-section" id="products" aria-labelledby="products-title">
