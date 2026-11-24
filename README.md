@@ -2,17 +2,19 @@
 
 Solid 2.0 と Go で動く、ローカルの複数店舗マーケットです。出店者はお店を開き、商品を公開して在庫と受注を管理できます。購入者は別のアカウントで複数のお店の商品をカートに入れ、まとめて注文できます。
 
+Solid の画面とブラウザ検証は `frontend/`、Go API と SQLite の定義は `backend/` にあります。以下のコマンドはリポジトリのルートから実行します。
+
 ## Mac で起動する
 
-Docker と Docker Compose、Node.js 24 LTS、`package.json` に記載の pnpm が必要です。
+Docker と Docker Compose、Node.js 24 LTS、`frontend/package.json` に記載の pnpm が必要です。
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm build
+pnpm --dir frontend install --frozen-lockfile
+pnpm --dir frontend build
 docker compose up -d --build --wait
 ```
 
-[http://127.0.0.1:8088](http://127.0.0.1:8088) を開きます。Go が API とビルド済みの画面を同じポートで配信します。別のポートを使う場合は `MARKET_PORT` を指定します。画面を編集する場合は、Go を起動した状態で `pnpm dev` を実行できます。
+[http://127.0.0.1:8088](http://127.0.0.1:8088) を開きます。Go が API と `frontend/dist/` にビルドした画面を同じポートで配信します。別のポートを使う場合は `MARKET_PORT` を指定します。画面を編集する場合は、Go を起動した状態で `pnpm --dir frontend dev` を実行できます。
 
 ### 購入を試す
 
@@ -42,17 +44,17 @@ docker compose stop
 ## 検証
 
 ```sh
-pnpm exec playwright install chromium
-pnpm typecheck
-pnpm test
-pnpm test:e2e
-pnpm test:market
+pnpm --dir frontend exec playwright install chromium
+pnpm --dir frontend typecheck
+pnpm --dir frontend test
+pnpm --dir frontend test:e2e
+pnpm --dir frontend test:market
 (cd backend && go test -race ./...)
 ```
 
 `test:market` は起動中の Go バックエンドを使い、2店舗で商品を公開し、購入者がまとめて注文して、購入者・出店者それぞれの画面で確認するテストです。実行ごとに検証用アカウント、商品、注文が追加されます。別ポートを使う場合は `MARKET_URL` に起動先を指定します。Go のテストは在庫不足時のロールバック、価格の再検証、再送時の重複防止、同時購入を確認します。
 
-Solid の基礎サンプルは `/notification-demo` にあります。Storybook は `pnpm storybook`、通知サンプルのモデル照合は `pnpm verify:model` で実行できます。
+Solid の基礎サンプルは `/notification-demo` にあります。Storybook は `pnpm --dir frontend storybook`、通知サンプルのモデル照合は `pnpm --dir frontend verify:model` で実行できます。
 
 ## APM と PR
 
@@ -65,6 +67,6 @@ APM は pstack の選択した Skill を上流のコミットに固定し、こ�
 
 ## 画面素材とデザイン
 
-画面の写真は ImageGen で作成したローカル素材です。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](public/market/hero-cobalt.jpg)・[商品写真](public/market/catalog-cobalt.jpg)
+画面の写真は ImageGen で作成したローカル素材です。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](frontend/public/market/hero-cobalt.jpg)・[商品写真](frontend/public/market/catalog-cobalt.jpg)
 
-画面の操作部品は [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) を参考にしています。Geist Sans v1.9.2 は同梱した [SIL Open Font License](public/market/fonts/OFL.txt) に従います。
+画面の操作部品は [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) を参考にしています。Geist Sans v1.9.2 は同梱した [SIL Open Font License](frontend/public/market/fonts/OFL.txt) に従います。

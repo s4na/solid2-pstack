@@ -18,7 +18,7 @@ services:
       DEMO_ACCOUNTS: ${DEMO_ACCOUNTS:-1}
     volumes:
       - marketplace-data:/data
-      - ./dist:/www:ro
+      - ./frontend/dist:/www:ro
     healthcheck:
       test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/api/health"]
       interval: 3s
