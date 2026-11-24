@@ -6,7 +6,7 @@ Solid の画面とブラウザ検証は `frontend/`、Go API と SQLite の定�
 
 ## Mac で起動する
 
-Docker と Docker Compose、Node.js 24 LTS、`frontend/package.json` に記載の pnpm が必要です。
+Docker と Docker Compose、Node.js 26 LTS（26.13.1 以降）、`frontend/package.json` に記載の pnpm が必要です。
 
 ```sh
 pnpm --dir frontend install --frozen-lockfile
