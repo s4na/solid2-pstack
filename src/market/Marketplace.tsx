@@ -11,8 +11,11 @@ import { SellerPanel } from "./SellerPanel";
 
 type Screen = "catalog" | "stores" | "orders" | "seller";
 type Cart = Record<number, number>;
+type CheckoutItem = { productId: number; unitPrice: number; quantity: number };
+type PendingPurchase = { buyerId: number; signature: string; requestKey: string; items: CheckoutItem[] };
 
 const cartKey = "yorimichi-cart-v1";
+const pendingPurchaseKey = "yorimichi-pending-purchase-v1";
 const cartLimit = 40;
 const quantityLimit = 99;
 
@@ -27,6 +30,19 @@ function savedCart(): Cart {
   } catch {
     return {};
   }
+}
+
+function savedPurchase(): PendingPurchase | null {
+  try {
+    const purchase = JSON.parse(localStorage.getItem(pendingPurchaseKey) ?? "null") as PendingPurchase | null;
+    if (purchase && Number.isSafeInteger(purchase.buyerId) && typeof purchase.signature === "string" &&
+        typeof purchase.requestKey === "string" && Array.isArray(purchase.items) && purchase.items.length > 0 &&
+        purchase.items.every((item) => item && Number.isSafeInteger(item.productId) &&
+          Number.isSafeInteger(item.unitPrice) && Number.isSafeInteger(item.quantity))) return purchase;
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 export function Marketplace() {
@@ -49,10 +65,10 @@ export function Marketplace() {
   const [cartError, setCartError] = createSignal("");
   const [announcement, setAnnouncement] = createSignal("");
   const [pending, setPending] = createSignal(false);
+  const [previousPurchase, setPreviousPurchase] = createSignal<PendingPurchase | null>(savedPurchase());
   const [addedProduct, setAddedProduct] = createSignal<number | null>(null);
   let addedTimer: number | undefined;
   onCleanup(() => window.clearTimeout(addedTimer));
-  let previousPurchase: { signature: string; requestKey: string } | undefined;
 
   const cartCount = () => Object.values(cart()).reduce((count, quantity) => count + quantity, 0);
   const cartRows = (): CartRow[] => catalog().products.flatMap((product) =>
@@ -206,33 +222,74 @@ export function Marketplace() {
   }
 
   const unavailable = () => Object.keys(cart()).length - cartRows().length;
-  const canOrder = () => cartRows().length > 0 && unavailable() === 0 &&
+  const canStartOrder = () => cartRows().length > 0 && unavailable() === 0 &&
     cartRows().every((row) => row.quantity <= row.product.stock);
 
+  function matchesPendingCart(purchase: PendingPurchase | null): purchase is PendingPurchase {
+    const quantities = cart();
+    return purchase !== null && purchase.buyerId === session().buyer?.id &&
+      purchase.items.length === Object.keys(quantities).length &&
+      purchase.items.every(({ productId, quantity }) => quantities[productId] === quantity);
+  }
+
+  const canOrder = () => canStartOrder() || matchesPendingCart(previousPurchase());
+
+  function rememberPurchase(value: PendingPurchase | null) {
+    setPreviousPurchase(value);
+    try {
+      if (value) localStorage.setItem(pendingPurchaseKey, JSON.stringify(value));
+      else localStorage.removeItem(pendingPurchaseKey);
+    } catch {
+      // On this page, retries can still reuse the in-memory request key.
+    }
+  }
+
   async function placeOrder(values: FormData) {
-    if (pending() || !canOrder()) return;
+    const buyer = session().buyer;
+    if (!buyer || pending() || !canOrder()) return;
     setPending(true);
     setCartError("");
-    const input = {
-      recipient: field(values, "recipient"),
-      postalCode: field(values, "postalCode"),
-      address: field(values, "address"),
-      items: cartRows().map(({ product, quantity }) => ({ productId: product.id, unitPrice: product.price, quantity })),
+    const delivery = {
+      recipient: field(values, "recipient").trim(),
+      postalCode: field(values, "postalCode").trim().replace(/^(\d{3})-?(\d{4})$/, "$1-$2"),
+      address: field(values, "address").trim(),
     };
-    const signature = JSON.stringify(input);
-    if (previousPurchase?.signature !== signature) previousPurchase = { signature, requestKey: crypto.randomUUID() };
 
     try {
-      const order = await api<Order>("/orders", "POST", { ...input, requestKey: previousPurchase.requestKey });
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(delivery)));
+      const signature = btoa(String.fromCharCode(...new Uint8Array(digest)));
+      const previous = savedPurchase() ?? previousPurchase();
+      let purchase: PendingPurchase;
+      if (matchesPendingCart(previous) && previous.signature === signature) {
+        purchase = previous;
+      } else {
+        if (!canStartOrder()) {
+          setCartError("注文を再確認するには、前回と同じお届け先を入力してください。");
+          return;
+        }
+        purchase = {
+          buyerId: buyer.id,
+          signature,
+          requestKey: crypto.randomUUID(),
+          items: cartRows().map(({ product, quantity }) => ({ productId: product.id, unitPrice: product.price, quantity })),
+        };
+      }
+      rememberPurchase(purchase);
+      const order = await api<Order>("/orders", "POST", {
+        ...delivery, items: purchase.items, requestKey: purchase.requestKey,
+      });
       persistCart({});
-      previousPurchase = undefined;
+      rememberPurchase(null);
       setReceipt(order);
       setCheckout(false);
       setAnnouncement(`注文 ${orderNumber(order.id)} が確定しました。`);
       await refreshCatalog();
     } catch (failure) {
       setCartError(errorMessage(failure));
-      if (failure instanceof RequestError && failure.status === 409) await refreshCatalog();
+      if (failure instanceof RequestError && failure.status === 409) {
+        rememberPurchase(null);
+        await refreshCatalog();
+      }
       if (failure instanceof RequestError && failure.status === 401) await refreshSession().catch(() => undefined);
     } finally {
       setPending(false);

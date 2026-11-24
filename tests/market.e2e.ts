@@ -94,3 +94,58 @@ test("別々のお店で商品を公開し、購入者がまとめて注文で�
   await expect(sellerOrder).toContainText(plate);
   await expect(sellerOrder).not.toContainText(cup);
 });
+
+for (const stock of [3, 1]) {
+  test(`注文直後に応答が切れても再読み込み後の注文は重複しない（在庫 ${stock} 点）`, async ({ page }) => {
+    const token = randomUUID().slice(0, 8);
+    const product = `再送を確認するカップ ${token}`;
+    await page.goto("/");
+    await page.getByRole("button", { name: "出店者ページ" }).click();
+    await publish(page, token, product, "1000");
+    if (stock !== 3) {
+      await page.getByRole("spinbutton", { name: `${product}の新しい在庫` }).fill(String(stock));
+      await page.getByRole("button", { name: "更新", exact: true }).click();
+      await expect(page.getByRole("listitem").filter({ hasText: product })).toContainText(`在庫 ${stock} 点`);
+    }
+    await page.getByRole("button", { name: "商品", exact: true }).click();
+    await page.getByRole("button", { name: `${product}をカートに入れる` }).click();
+    const cart = page.getByRole("button", { name: /^カート/ });
+    const drawer = page.getByRole("dialog");
+    await cart.click();
+    await drawer.getByRole("button", { name: "購入手続きへ" }).click();
+    await signUp(drawer, "購入者", `検証購入者 ${token}`, `buyer-${token}@example.test`);
+    await drawer.getByLabel("郵便番号").fill("1000001");
+    await drawer.getByLabel("住所").fill("東京都千代田区千代田1");
+
+    let firstOrderId: number | undefined;
+    await page.route("**/api/orders", async (route) => {
+      const response = await route.fetch();
+      expect(response.status()).toBe(201);
+      firstOrderId = (await response.json()).id;
+      await route.abort();
+    }, { times: 1 });
+    await drawer.getByRole("button", { name: "注文を確定する" }).click();
+    await expect(drawer.getByRole("alert")).toContainText("接続できませんでした");
+    expect(firstOrderId).toBeGreaterThan(0);
+
+    await page.reload();
+    await cart.click();
+    await drawer.getByRole("button", { name: "購入手続きへ" }).click();
+    await drawer.getByLabel("郵便番号").fill("100-0001");
+    await drawer.getByLabel("住所").fill("東京都千代田区千代田1");
+    const replay = page.waitForResponse((response) =>
+      response.url().endsWith("/api/orders") && response.request().method() === "POST");
+    await drawer.getByRole("button", { name: "注文を確定する" }).click();
+    const response = await replay;
+    expect(response.status()).toBe(200);
+    expect((await response.json()).id).toBe(firstOrderId);
+    await expect(drawer.getByRole("heading", { name: "注文が確定しました" })).toBeVisible();
+
+    await drawer.getByRole("button", { name: "注文履歴を見る" }).click();
+    await expect(page.getByText(product, { exact: false })).toHaveCount(1);
+    await expect(cart).toContainText("0点");
+    await page.getByRole("button", { name: "出店者ページ" }).click();
+    const stockInput = page.getByRole("spinbutton", { name: `${product}の新しい在庫` });
+    await expect(page.getByRole("listitem").filter({ has: stockInput })).toContainText(`在庫 ${stock - 1} 点`);
+  });
+}
