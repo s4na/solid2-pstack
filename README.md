@@ -6,7 +6,7 @@
 
 ## セットアップ
 
-Node.js 24 LTS、`frontend/package.json` に記載の pnpm、Homebrew で導入した APM を使います。
+Node.js 26 LTS（26.13.1 以降）、`frontend/package.json` に記載の pnpm、Homebrew で導入した APM を使います。
 
 ```sh
 brew install microsoft/apm/apm
