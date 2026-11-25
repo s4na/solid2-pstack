@@ -4,6 +4,14 @@
 
 画面と操作は Storybook、Vitest Browser Mode、Playwright で確認します。通知設定では fast-check で操作列を検証し、TLA+ の状態遷移モデルと TypeScript の実装も照合します。pstack の検証・振り返り Skill は APM で導入します。
 
+## GitHub Pages の公開デモ
+
+[よりみち商店街デモ](https://s4na.github.io/solid2-pstack/) では、架空の店舗・商品の閲覧、検索、カート、トンマナの切り替えを試せます。[通知設定デモ](https://s4na.github.io/solid2-pstack/notification-demo/) も公開しています。注文や出店は下記のローカル版で体験できます。
+
+`main` の更新時に、GitHub Actions の [GitHub Pages ワークフロー](.github/workflows/pages.yml) がフロントエンドと公開用の商品データをビルドして公開します。商品データはローカル版と同じデモデータから生成されます。
+
+公開物にはこのリポジトリの MIT ライセンスと、同梱ライブラリのライセンス一覧を含めます。Solid 本体と Web ランタイムの MIT ライセンスは [公開バージョンのソース](https://github.com/solidjs/solid/blob/a8186e6738b3a6a3341c561f66e9325432d6759b/LICENSE) から同梱しています。
+
 ## 架空の商店街デモ「よりみち商店街」
 
 Solid 2.0 と Go で、架空の複数店舗マーケットをローカルで体験できます。出店者はお店を開き、商品を公開して在庫と受注を管理できます。購入者は別のアカウントで複数のお店の商品をカートに入れ、まとめて注文できます。

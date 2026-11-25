@@ -6,6 +6,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -77,6 +78,10 @@ func openDB(path string) (*sql.DB, error) {
 		return nil, err
 	}
 	dsn := (&url.URL{Scheme: "file", Path: absolute, RawQuery: "_pragma=foreign_keys(1)&_pragma=busy_timeout(5000)&_pragma=journal_mode(WAL)"}).String()
+	return openSQLite(dsn)
+}
+
+func openSQLite(dsn string) (*sql.DB, error) {
 	db, err := sql.Open("sqlite", dsn)
 	if err != nil {
 		return nil, err
@@ -126,6 +131,15 @@ func (app marketplace) routes(staticDir string) http.Handler {
 }
 
 func main() {
+	exportCatalog := flag.Bool("export-demo-catalog", false, "write the seeded public catalog as JSON")
+	flag.Parse()
+	if *exportCatalog {
+		if err := writeDemoCatalog(context.Background(), os.Stdout); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
 	dbPath := os.Getenv("DB_PATH")
 	if dbPath == "" {
 		dbPath = "marketplace.sqlite"
@@ -167,6 +181,24 @@ func main() {
 		log.Fatal(err)
 	}
 	<-shutdown
+}
+
+func writeDemoCatalog(ctx context.Context, output io.Writer) error {
+	db, err := openSQLite("file::memory:?_pragma=foreign_keys(1)")
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	app := marketplace{db: db}
+	if err := app.seed(ctx); err != nil {
+		return err
+	}
+	catalog, err := app.loadCatalog(ctx)
+	if err != nil {
+		return err
+	}
+	return json.NewEncoder(output).Encode(catalog)
 }
 
 func normalizedText(value string, maxLength int) (string, bool) {

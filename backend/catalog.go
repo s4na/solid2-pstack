@@ -80,18 +80,27 @@ func (app marketplace) loadStores(ctx context.Context) ([]Store, error) {
 	return stores, rows.Err()
 }
 
+type Catalog struct {
+	Stores   []Store   `json:"stores"`
+	Products []Product `json:"products"`
+}
+
+func (app marketplace) loadCatalog(ctx context.Context) (Catalog, error) {
+	stores, err := app.loadStores(ctx)
+	if err != nil {
+		return Catalog{}, err
+	}
+	products, err := app.loadProducts(ctx, 0)
+	return Catalog{Stores: stores, Products: products}, err
+}
+
 func (app marketplace) catalog(w http.ResponseWriter, r *http.Request) {
-	stores, err := app.loadStores(r.Context())
+	catalog, err := app.loadCatalog(r.Context())
 	if err != nil {
 		respondError(w, err)
 		return
 	}
-	products, err := app.loadProducts(r.Context(), 0)
-	if err != nil {
-		respondError(w, err)
-		return
-	}
-	respond(w, http.StatusOK, map[string]any{"stores": stores, "products": products})
+	respond(w, http.StatusOK, catalog)
 }
 
 func (app marketplace) storeForSeller(ctx context.Context, sellerID int64) (Store, error) {

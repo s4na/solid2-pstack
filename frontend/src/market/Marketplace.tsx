@@ -3,7 +3,7 @@ import {
 } from "@ui-sdk/solid/dialog";
 import { createSignal, For, Match, onCleanup, Show, Switch } from "solid-js";
 import {
-  api, categories, categoryKeys, errorMessage, field, orderNumber, RequestError, yen,
+  api, categories, categoryKeys, errorMessage, field, loadCatalog, orderNumber, RequestError, yen,
   type CartRow, type Catalog, type Category, type Order, type Product, type Role, type SellerDashboard, type Session,
 } from "./api";
 import { AccountForm, ActionButton, OrderList, ProductImage } from "./components";
@@ -15,12 +15,11 @@ type Cart = Record<number, number>;
 type CheckoutItem = { productId: number; unitPrice: number; quantity: number };
 type PendingPurchase = { buyerId: number; signature: string; requestKey: string; items: CheckoutItem[] };
 
-const cartKey = "yorimichi-cart-v1";
 const pendingPurchaseKey = "yorimichi-pending-purchase-v1";
 const cartLimit = 40;
 const quantityLimit = 99;
 
-function savedCart(): Cart {
+function savedCart(cartKey: string): Cart {
   try {
     const value = JSON.parse(localStorage.getItem(cartKey) ?? "{}") as unknown;
     if (typeof value !== "object" || value === null || Array.isArray(value)) return {};
@@ -46,7 +45,9 @@ function savedPurchase(): PendingPurchase | null {
   return null;
 }
 
-export function Marketplace() {
+export function Marketplace(props: { preview: boolean }) {
+  const base = import.meta.env.BASE_URL;
+  const cartKey = props.preview ? "yorimichi-preview-cart-v1" : "yorimichi-cart-v1";
   const [screen, setScreen] = createSignal<Screen>("catalog");
   const [catalog, setCatalog] = createSignal<Catalog>({ stores: [], products: [] });
   const [session, setSession] = createSignal<Session>({ buyer: null, seller: null });
@@ -59,14 +60,14 @@ export function Marketplace() {
   const [storeFilter, setStoreFilter] = createSignal<number | null>(null);
   const [search, setSearch] = createSignal("");
   const [selected, setSelected] = createSignal<number[]>([]);
-  const [cart, setCart] = createSignal<Cart>(savedCart());
+  const [cart, setCart] = createSignal<Cart>(savedCart(cartKey));
   const [cartOpen, setCartOpen] = createSignal(false);
   const [checkout, setCheckout] = createSignal(false);
   const [receipt, setReceipt] = createSignal<Order | null>(null);
   const [cartError, setCartError] = createSignal("");
   const [announcement, setAnnouncement] = createSignal("");
   const [pending, setPending] = createSignal(false);
-  const [previousPurchase, setPreviousPurchase] = createSignal<PendingPurchase | null>(savedPurchase());
+  const [previousPurchase, setPreviousPurchase] = createSignal<PendingPurchase | null>(props.preview ? null : savedPurchase());
   const [addedProduct, setAddedProduct] = createSignal<number | null>(null);
   let addedTimer: number | undefined;
   onCleanup(() => window.clearTimeout(addedTimer));
@@ -88,7 +89,7 @@ export function Marketplace() {
 
   async function refreshCatalog() {
     try {
-      setCatalog(await api<Catalog>("/catalog"));
+      setCatalog(await loadCatalog(props.preview));
       setCatalogError("");
     } catch (failure) {
       setCatalogError(errorMessage(failure));
@@ -298,9 +299,11 @@ export function Marketplace() {
   }
 
   void refreshCatalog();
-  void refreshSession()
-    .then((value) => loadScreenData(screen(), value))
-    .catch((failure) => setScreenError(errorMessage(failure)));
+  if (!props.preview) {
+    void refreshSession()
+      .then((value) => loadScreenData(screen(), value))
+      .catch((failure) => setScreenError(errorMessage(failure)));
+  }
 
   return (
     <>
@@ -308,7 +311,7 @@ export function Marketplace() {
       <Dialog open={cartOpen()} onOpenChange={changeCartOpen}>
         <header class="site-header">
           <div class="header-inner">
-            <a class="wordmark" href="/" onClick={(event) => { event.preventDefault(); shop(); }}>
+            <a class="wordmark" href={base} onClick={(event) => { event.preventDefault(); shop(); }}>
               <span class="brand-icon" aria-hidden="true"><i /><i /><i /><i /></span>
               <span class="wordmark-text">
                 <span>よりみち<span class="brand-suffix">商店街</span></span>
@@ -320,10 +323,12 @@ export function Marketplace() {
               <button type="button" aria-current={screen() === "stores" ? "page" : undefined} onClick={() => navigate("stores")}>お店</button>
             </nav>
             <div class="header-actions">
-              <button type="button" class="header-link" aria-current={screen() === "orders" ? "page" : undefined}
-                onClick={() => navigate("orders")}>注文履歴</button>
-              <button type="button" class="header-link seller-link" aria-current={screen() === "seller" ? "page" : undefined}
-                onClick={() => navigate("seller")}>出店者ページ</button>
+              <Show when={!props.preview} fallback={<a class="header-link" href={`${base}notification-demo/`}>通知設定デモ</a>}>
+                <button type="button" class="header-link" aria-current={screen() === "orders" ? "page" : undefined}
+                  onClick={() => navigate("orders")}>注文履歴</button>
+                <button type="button" class="header-link seller-link" aria-current={screen() === "seller" ? "page" : undefined}
+                  onClick={() => navigate("seller")}>出店者ページ</button>
+              </Show>
             </div>
             <ToneSwitcher />
           </div>
@@ -388,7 +393,9 @@ export function Marketplace() {
               </Show>
               <div class="cart-total"><span>合計</span><strong>{yen(total())}</strong></div>
               <Show when={checkout()} fallback={
-                <ActionButton class="full" disabled={!canOrder()} onClick={() => setCheckout(true)}>購入手続きへ</ActionButton>
+                <Show when={!props.preview} fallback={<p class="muted">注文はローカル版で試せます。</p>}>
+                  <ActionButton class="full" disabled={!canOrder()} onClick={() => setCheckout(true)}>購入手続きへ</ActionButton>
+                </Show>
               }>
                 <Show when={session().buyer} fallback={
                   <div class="checkout-section">
@@ -431,6 +438,9 @@ export function Marketplace() {
 
       <main id="content" class="site-main">
         <div class="sr-only" role="status">{announcement()}</div>
+        <Show when={props.preview}>
+          <p class="notice muted">公開プレビューでは商品選びとカートを体験できます。注文や出店はローカル版で試せます。</p>
+        </Show>
         <Show when={screenError()}><p class="notice error" role="alert">{screenError()}</p></Show>
         <Switch>
           <Match when={screen() === "catalog"}>
@@ -444,10 +454,10 @@ export function Marketplace() {
                 <div class="hero-copy">
                   <p class="hero-kicker">小さなお店のマーケット</p>
                   <h1 id="hero-title">よりみち<br />商店街デモ</h1>
-                  <p>器、香り、暮らしの道具。<br />架空のお店で、買い物や出店を体験できます。</p>
+                  <p>器、香り、暮らしの道具。<br />{props.preview ? "架空のお店で、商品選びを体験できます。" : "架空のお店で、買い物や出店を体験できます。"}</p>
                   <a class="hero-action" href="#products">商品を探す<span aria-hidden="true">↘</span></a>
                 </div>
-                <div class="hero-art"><img src="/market/hero-cobalt.jpg" alt="" fetchpriority="high" /></div>
+                <div class="hero-art"><img src={`${base}market/hero-cobalt.jpg`} alt="" fetchpriority="high" /></div>
               </section>
             </Show>
             <section class="catalog-section" id="products" aria-labelledby="products-title">
@@ -517,7 +527,9 @@ export function Marketplace() {
             <section class="work-area" aria-labelledby="stores-title">
               <div class="work-title">
                 <div><h1 id="stores-title">お店を探す</h1><p>よりみち商店街に集まる、小さなお店。</p></div>
-                <ActionButton variant="quiet" onClick={() => navigate("seller")}>お店を出店する</ActionButton>
+                <Show when={!props.preview}>
+                  <ActionButton variant="quiet" onClick={() => navigate("seller")}>お店を出店する</ActionButton>
+                </Show>
               </div>
               <div class="store-grid">
                 <For each={catalog().stores} fallback={<p class="empty">出店中のお店がありません。</p>}>
@@ -560,7 +572,9 @@ export function Marketplace() {
 
       <footer class="site-footer">
         <span>よりみち商店街</span>
-        <button type="button" class="inline-link" onClick={() => navigate("seller")}>お店を出店する</button>
+        <Show when={!props.preview} fallback={<a class="inline-link" href={`${base}THIRD_PARTY_LICENSES.md`}>第三者ライセンス</a>}>
+          <button type="button" class="inline-link" onClick={() => navigate("seller")}>お店を出店する</button>
+        </Show>
       </footer>
     </>
   );
