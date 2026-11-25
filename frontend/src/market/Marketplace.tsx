@@ -310,7 +310,10 @@ export function Marketplace() {
           <div class="header-inner">
             <a class="wordmark" href="/" onClick={(event) => { event.preventDefault(); shop(); }}>
               <span class="brand-icon" aria-hidden="true"><i /><i /><i /><i /></span>
-              <span>よりみち<span class="brand-suffix">商店街</span></span>
+              <span class="wordmark-text">
+                <span>よりみち<span class="brand-suffix">商店街</span></span>
+                <small class="wordmark-caption">架空の商店街デモ</small>
+              </span>
             </a>
             <nav class="site-nav" aria-label="メインメニュー">
               <button type="button" aria-current={screen() === "catalog" ? "page" : undefined} onClick={() => shop()}>商品</button>
@@ -440,8 +443,8 @@ export function Marketplace() {
               <section class="hero" aria-labelledby="hero-title">
                 <div class="hero-copy">
                   <p class="hero-kicker">小さなお店のマーケット</p>
-                  <h1 id="hero-title">日々に、<br />いいものを。</h1>
-                  <p>器、香り、暮らしの道具。<br />小さなお店から、お気に入りを見つける。</p>
+                  <h1 id="hero-title">よりみち<br />商店街デモ</h1>
+                  <p>器、香り、暮らしの道具。<br />架空のお店で、買い物や出店を体験できます。</p>
                   <a class="hero-action" href="#products">商品を探す<span aria-hidden="true">↘</span></a>
                 </div>
                 <div class="hero-art"><img src="/market/hero-cobalt.jpg" alt="" fetchpriority="high" /></div>
