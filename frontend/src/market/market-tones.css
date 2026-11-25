@@ -1,0 +1,88 @@
+:root {
+  --market-color-scheme: light;
+  --market-font: "Geist Sans", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --display-font: var(--market-font);
+  --canvas: #ffffff;
+  --paper: #ffffff;
+  --ink: #171717;
+  --muted: #525252;
+  --brand: #0a0a0a;
+  --brand-hover: #292929;
+  --brand-pressed: #404040;
+  --brand-on: #ffffff;
+  --accent-ink: var(--brand-pressed);
+  --subtle: #f5f5f5;
+  --hover: #ededed;
+  --pressed: #e2e2e2;
+  --line: #e5e5e5;
+  --control-line: #c7c7c7;
+  --control-line-strong: #8b8b8b;
+  --focus: #171717;
+  --success: #171717;
+  --success-surface: #f2f2f2;
+  --success-line: #c7c7c7;
+  --hero-surface: var(--brand);
+  --hero-kicker: #bdbdbd;
+  --hero-body: #e2e2e2;
+  --photo-filter: none;
+  --control-radius: 8px;
+  --panel-radius: 14px;
+  --elevation: 0 2px 4px #00000012, 0 8px 22px #0000001c;
+}
+
+:root[data-market-tone="craft"] {
+  --display-font: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", Georgia, serif;
+  --canvas: #fbf4e7;
+  --paper: #fffaf1;
+  --ink: #34231a;
+  --muted: #695044;
+  --brand: #873d28;
+  --brand-hover: #74321f;
+  --brand-pressed: #5e2819;
+  --brand-on: #fffaf1;
+  --subtle: #f4e7d3;
+  --hover: #f0dec8;
+  --pressed: #ead3b8;
+  --line: #e3cfb9;
+  --control-line: #bd9e84;
+  --control-line-strong: #8d6651;
+  --focus: #873d28;
+  --success: #36513e;
+  --success-surface: #e6ece0;
+  --success-line: #a4b4a3;
+  --hero-kicker: #ffe1ba;
+  --hero-body: #fff2df;
+  --photo-filter: sepia(.18) saturate(.8);
+  --control-radius: 14px;
+  --panel-radius: 23px;
+  --elevation: 0 3px 6px #5e28191a, 0 8px 24px #5e281924;
+}
+
+:root[data-market-tone="night"] {
+  --market-color-scheme: dark;
+  --canvas: #141321;
+  --paper: #201e31;
+  --ink: #f7f4ff;
+  --muted: #c3bad4;
+  --brand: #5d4cbe;
+  --brand-hover: #6554c5;
+  --brand-pressed: #4c3ba5;
+  --accent-ink: #d8caff;
+  --subtle: #2b2641;
+  --hover: #352d50;
+  --pressed: #433963;
+  --line: #443d57;
+  --control-line: #827393;
+  --control-line-strong: #a796bc;
+  --focus: #d7c3ff;
+  --success: #bcf1dc;
+  --success-surface: #243c3b;
+  --success-line: #6baa99;
+  --hero-surface: #31265d;
+  --hero-kicker: #dacdff;
+  --hero-body: #e9e0ff;
+  --photo-filter: saturate(.9) brightness(.88);
+  --control-radius: 5px;
+  --panel-radius: 9px;
+  --elevation: 0 3px 8px #00000040, 0 12px 26px #0000005e;
+}

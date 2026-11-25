@@ -54,7 +54,7 @@ const actions = stylex.create({
   },
   quiet: {
     backgroundColor: { default: "var(--paper)", ":hover": "var(--hover)", ":active": "var(--pressed)" },
-    color: "var(--brand-pressed)",
+    color: "var(--accent-ink)",
     borderColor: "var(--control-line)",
   },
   light: {

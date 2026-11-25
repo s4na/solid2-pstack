@@ -24,6 +24,49 @@ async function publish(page: Page, token: string, product: string, price: string
   await expect(page.getByRole("listitem").filter({ hasText: product })).toContainText("在庫 3 点");
 }
 
+test("トンマナを切り替えても商品検索とカートが続き、再読み込み後も選択が残る", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const token = randomUUID().slice(0, 8);
+  const product = `トンマナ確認用の器 ${token}`;
+  await page.goto("/");
+  const tones = page.getByRole("radiogroup", { name: "トンマナ" });
+  const mono = tones.getByRole("radio", { name: "モノ" });
+  const craft = tones.getByRole("radio", { name: "クラフト" });
+  const night = tones.getByRole("radio", { name: "ナイト" });
+  const hero = page.locator(".hero");
+  const heroColor = () => hero.evaluate((element) => getComputedStyle(element).backgroundColor);
+  await expect(mono).toBeChecked();
+  await expect(night).toBeInViewport();
+  const monoColor = await heroColor();
+
+  await page.getByRole("button", { name: "出店者ページ" }).click();
+  await publish(page, token, product, "1300");
+  await page.getByRole("button", { name: "商品", exact: true }).click();
+  const search = page.getByRole("searchbox", { name: "商品やお店を検索" });
+  await search.fill(token);
+  await page.getByRole("button", { name: `${product}をカートに入れる` }).click();
+
+  await craft.click();
+  await expect(craft).toBeChecked();
+  const craftColor = await heroColor();
+  await craft.press("ArrowRight");
+  await expect(night).toBeChecked();
+  await expect(night).toBeFocused();
+  expect(new Set([monoColor, craftColor, await heroColor()]).size).toBe(3);
+  await expect(search).toHaveValue(token);
+
+  await page.getByRole("button", { name: /^カート/ }).click();
+  const drawer = page.getByRole("dialog");
+  await expect(drawer).toContainText(product);
+  await expect(drawer).toContainText("￥1,300");
+  await page.reload();
+  await expect(night).toBeChecked();
+  await expect(page.getByRole("button", { name: /^カート/ })).toContainText("1点");
+  await mono.click();
+  await expect(tones.getByRole("radio", { checked: true })).toHaveText("モノ");
+  await expect.poll(heroColor).toBe(monoColor);
+});
+
 test("別々のお店で商品を公開し、購入者がまとめて注文できる", async ({ page }) => {
   const token = randomUUID().slice(0, 8);
   const cup = `検証カップ ${token}`;
