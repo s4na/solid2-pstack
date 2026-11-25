@@ -106,6 +106,35 @@ test("選んだトンマナのCSSを個別に読み込み、失敗しても再�
   expect(requestedTones).toEqual(["mono", "craft", "craft"]);
 });
 
+test("スマホ幅で追加の10種類を一覧から選び、再読み込み後も選択が残る", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const requestedThemes: string[] = [];
+  page.on("request", (request) => {
+    const match = /\/(mono|field)(?:-[\w-]+)?\.css(?:\?|$)/.exec(request.url());
+    if (match) requestedThemes.push(match[1]);
+  });
+
+  await page.goto("/");
+  const more = page.getByRole("combobox", { name: /^ほかのトンマナ/ });
+  await more.press("Enter");
+  await expect(page.getByRole("option")).toHaveText([
+    "売り場", "技術誌", "作業台", "ストア", "パルス", "ターミナル", "アトラス", "デスク", "ギャラリー", "フィールド",
+  ]);
+  expect(requestedThemes).toEqual(["mono"]);
+
+  await page.keyboard.press("End");
+  await page.keyboard.press("Enter");
+  await expect(more).toHaveText(/フィールド/);
+  expect(requestedThemes).toEqual(["mono", "field"]);
+  await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
+
+  await page.reload();
+  await expect(more).toHaveText(/フィールド/);
+  await page.getByRole("radio", { name: "モノ" }).click();
+  await expect(page.getByRole("radio", { name: "モノ" })).toBeChecked();
+  await expect(more).toHaveText(/ほか/);
+});
+
 test("別々のお店で商品を公開し、購入者がまとめて注文できる", async ({ page }) => {
   const token = randomUUID().slice(0, 8);
   const cup = `検証カップ ${token}`;

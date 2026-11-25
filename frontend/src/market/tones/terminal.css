@@ -1,0 +1,57 @@
+:root[data-market-tone="terminal"] {
+  --market-color-scheme: dark;
+  --display-font: ui-monospace, "Hiragino Sans", "Yu Gothic", monospace;
+  --hero-title-size: clamp(28px, 3.7vw, 48px);
+  --hero-title-weight: 780;
+  --hero-title-tracking: .005em;
+  --section-title-size: clamp(23px, 2.6vw, 33px);
+  --product-title-size: 16px;
+  --product-description-size: 13px;
+  --price-size: 19px;
+  --action-size: 13px;
+  --canvas: #101a17;
+  --paper: #172522;
+  --ink: #e6f4ed;
+  --muted: #adc5b9;
+  --brand: #a5e9c5;
+  --brand-hover: color-mix(in srgb, #a5e9c5, white 11%);
+  --brand-pressed: color-mix(in srgb, #a5e9c5, black 10%);
+  --brand-on: #10291e;
+  --accent-ink: #bcebd0;
+  --subtle: color-mix(in srgb, var(--paper), var(--ink) 6%);
+  --hover: color-mix(in srgb, var(--paper), var(--ink) 11%);
+  --pressed: color-mix(in srgb, var(--paper), var(--ink) 16%);
+  --line: color-mix(in srgb, var(--paper), var(--ink) 19%);
+  --control-line: color-mix(in srgb, var(--paper), var(--muted) 56%);
+  --control-line-strong: var(--muted);
+  --focus: var(--accent-ink);
+  --success: #b8e9c7;
+  --success-surface: #244035;
+  --success-line: #749988;
+  --hero-surface: #132920;
+  --hero-ink: #e6f4ed;
+  --hero-kicker: #a5e9c5;
+  --hero-body: #c6dbd0;
+  --photo-filter: grayscale(.72) sepia(.18) brightness(.88);
+  --control-radius: 3px;
+  --panel-radius: 3px;
+  --elevation: 0 4px 18px #00000055;
+  --hero-columns: minmax(0, 1fr) 34%;
+  --hero-min-height: 270px;
+  --hero-padding: clamp(24px, 4vw, 52px);
+  --hero-art-mobile-height: 150px;
+  --catalog-columns: 2;
+  --catalog-tablet-columns: 2;
+  --catalog-mobile-columns: 1;
+  --catalog-gap: 7px;
+  --catalog-image-ratio: 1;
+}
+
+:root[data-market-tone="terminal"] .hero { border: 1px solid var(--control-line); }
+:root[data-market-tone="terminal"] .hero-copy { border-block-start: 2px solid var(--brand); }
+:root[data-market-tone="terminal"] .hero img { object-position: 53% 32%; }
+:root[data-market-tone="terminal"] .product-card { display: grid; grid-template-columns: 90px minmax(0, 1fr); padding: 7px; }
+:root[data-market-tone="terminal"] .product-visual .product-select { inset: 3px auto auto 3px; }
+:root[data-market-tone="terminal"] .product-copy { gap: 3px; padding: 3px 5px 3px 12px; }
+:root[data-market-tone="terminal"] .product-copy h3, :root[data-market-tone="terminal"] .product-bottom strong { font-family: var(--display-font); }
+:root[data-market-tone="terminal"] .product-bottom strong { color: var(--accent-ink); }

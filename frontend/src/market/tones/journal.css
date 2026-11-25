@@ -1,0 +1,55 @@
+:root[data-market-tone="journal"] {
+  --market-color-scheme: light;
+  --display-font: var(--market-font);
+  --hero-title-size: clamp(32px, 4.1vw, 54px);
+  --hero-title-weight: 740;
+  --hero-title-tracking: -.04em;
+  --section-title-size: clamp(25px, 3.3vw, 40px);
+  --product-title-size: clamp(17px, 1.9vw, 23px);
+  --product-description-size: 15px;
+  --price-size: clamp(17px, 1.55vw, 21px);
+  --action-size: 14px;
+  --canvas: #f0eef8;
+  --paper: #fffefe;
+  --ink: #26263c;
+  --muted: #55546d;
+  --brand: #494189;
+  --brand-hover: color-mix(in srgb, #494189, black 11%);
+  --brand-pressed: color-mix(in srgb, #494189, white 10%);
+  --brand-on: #ffffff;
+  --accent-ink: #453c85;
+  --subtle: color-mix(in srgb, var(--paper), var(--ink) 6%);
+  --hover: color-mix(in srgb, var(--paper), var(--ink) 11%);
+  --pressed: color-mix(in srgb, var(--paper), var(--ink) 16%);
+  --line: color-mix(in srgb, var(--paper), var(--ink) 19%);
+  --control-line: color-mix(in srgb, var(--paper), var(--muted) 56%);
+  --control-line-strong: var(--muted);
+  --focus: var(--accent-ink);
+  --success: #25573c;
+  --success-surface: #e1f0e7;
+  --success-line: #98b5a4;
+  --hero-surface: #fffefe;
+  --hero-ink: #26263c;
+  --hero-kicker: #51458a;
+  --hero-body: #55546d;
+  --photo-filter: saturate(.7) brightness(1.04);
+  --control-radius: 10px;
+  --panel-radius: 16px;
+  --elevation: 0 2px 4px #18232312, 0 8px 24px #18232320;
+  --hero-columns: minmax(0, 1fr) 40%;
+  --hero-min-height: clamp(280px, 27vw, 330px);
+  --hero-padding: clamp(25px, 4vw, 52px);
+  --hero-art-mobile-height: 160px;
+  --catalog-columns: 2;
+  --catalog-tablet-columns: 2;
+  --catalog-mobile-columns: 1;
+  --catalog-gap: clamp(14px, 2vw, 26px);
+  --catalog-image-ratio: 2.1;
+}
+
+:root[data-market-tone="journal"] .site-main { max-width: 980px; }
+:root[data-market-tone="journal"] .hero { border: 1px solid var(--line); }
+:root[data-market-tone="journal"] .hero-art { margin: 18px; overflow: hidden; border-radius: 12px; }
+:root[data-market-tone="journal"] .hero img { object-position: 58% 33%; }
+:root[data-market-tone="journal"] .product-copy { gap: 8px; padding: 16px; }
+:root[data-market-tone="journal"] .store-reference { color: var(--accent-ink); }
