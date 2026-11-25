@@ -86,7 +86,15 @@ export class RequestError extends Error {
 }
 
 export async function api<T>(path: string, method = "GET", body?: unknown): Promise<T> {
-  const response = await fetch(`/api${path}`, {
+  return request<T>(`/api${path}`, method, body);
+}
+
+export function loadCatalog(preview: boolean): Promise<Catalog> {
+  return preview ? request<Catalog>(`${import.meta.env.BASE_URL}catalog.json`, "GET") : api<Catalog>("/catalog");
+}
+
+async function request<T>(url: string, method: string, body?: unknown): Promise<T> {
+  const response = await fetch(url, {
     method,
     headers: body !== undefined ? { "Content-Type": "application/json" } : undefined,
     body: body === undefined ? undefined : JSON.stringify(body),

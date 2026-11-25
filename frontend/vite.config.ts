@@ -7,6 +7,7 @@ export default defineConfig({
     stylex.vite({ runtimeInjection: false }),
     solid(),
   ],
+  build: { license: { fileName: "THIRD_PARTY_LICENSES.md" } },
   server: { proxy: { "/api": `http://127.0.0.1:${process.env.MARKET_PORT ?? "8088"}` } },
   optimizeDeps: { exclude: ["@ui-sdk/core"] },
 });

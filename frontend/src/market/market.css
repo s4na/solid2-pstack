@@ -99,6 +99,7 @@ a { color: inherit; }
   font-size: 14px;
   white-space: nowrap;
 }
+a.header-link { display: inline-flex; align-items: center; text-decoration: none; }
 .site-nav { justify-content: center; gap: 6px; }
 .site-nav button, .header-link {
   min-height: var(--control-height);
