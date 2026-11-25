@@ -1,0 +1,55 @@
+:root[data-market-tone="field"] {
+  --market-color-scheme: light;
+  --display-font: var(--market-font);
+  --hero-title-size: clamp(38px, 5.9vw, 76px);
+  --hero-title-weight: 850;
+  --hero-title-tracking: -.045em;
+  --section-title-size: clamp(28px, 3.45vw, 44px);
+  --product-title-size: clamp(17px, 1.8vw, 23px);
+  --product-description-size: 14px;
+  --price-size: clamp(17px, 1.8vw, 22px);
+  --action-size: 14px;
+  --canvas: #f7f0df;
+  --paper: #fff9e9;
+  --ink: #292d24;
+  --muted: #555744;
+  --brand: #4d602d;
+  --brand-hover: color-mix(in srgb, #4d602d, black 11%);
+  --brand-pressed: color-mix(in srgb, #4d602d, white 10%);
+  --brand-on: #ffffff;
+  --accent-ink: #4f5e32;
+  --subtle: color-mix(in srgb, var(--paper), var(--ink) 6%);
+  --hover: color-mix(in srgb, var(--paper), var(--ink) 11%);
+  --pressed: color-mix(in srgb, var(--paper), var(--ink) 16%);
+  --line: color-mix(in srgb, var(--paper), var(--ink) 19%);
+  --control-line: color-mix(in srgb, var(--paper), var(--muted) 56%);
+  --control-line-strong: var(--muted);
+  --focus: var(--accent-ink);
+  --success: #25573c;
+  --success-surface: #e1f0e7;
+  --success-line: #98b5a4;
+  --hero-surface: #343e21;
+  --hero-ink: #fff8e6;
+  --hero-kicker: #e9dea7;
+  --hero-body: #f0e9ce;
+  --photo-filter: saturate(.66) sepia(.42) contrast(.98);
+  --control-radius: 7px;
+  --panel-radius: 14px;
+  --elevation: 0 2px 4px #18232312, 0 8px 24px #18232320;
+  --hero-columns: 53% 47%;
+  --hero-min-height: clamp(335px, 33vw, 438px);
+  --hero-padding: clamp(23px, 4.5vw, 60px);
+  --hero-art-mobile-height: 178px;
+  --catalog-columns: 3;
+  --catalog-tablet-columns: 2;
+  --catalog-mobile-columns: 2;
+  --catalog-gap: clamp(10px, 1.5vw, 19px);
+  --catalog-image-ratio: 1.52;
+}
+
+:root[data-market-tone="field"] .hero { border-radius: 0 var(--panel-radius) var(--panel-radius) 0; }
+:root[data-market-tone="field"] .hero-copy { border-inline-start: 5px solid #d8c37f; }
+:root[data-market-tone="field"] .hero img { object-position: 58% 34%; }
+:root[data-market-tone="field"] .catalog-toolbar { border-block: 1px solid var(--line); padding-block: 9px; }
+:root[data-market-tone="field"] .product-card { border-width: 0 0 1px; border-radius: 0; background: transparent; }
+:root[data-market-tone="field"] .product-copy { padding-inline: 4px; }

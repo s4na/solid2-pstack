@@ -1,0 +1,53 @@
+:root[data-market-tone="aisle"] {
+  --market-color-scheme: light;
+  --display-font: var(--market-font);
+  --hero-title-size: clamp(35px, 4.8vw, 63px);
+  --hero-title-weight: 860;
+  --hero-title-tracking: -.055em;
+  --section-title-size: clamp(25px, 3.2vw, 40px);
+  --product-title-size: clamp(15px, 1.6vw, 20px);
+  --product-description-size: 13px;
+  --price-size: clamp(17px, 2vw, 25px);
+  --action-size: 14px;
+  --canvas: #fbf5e9;
+  --paper: #fffdf8;
+  --ink: #202e2a;
+  --muted: #4a5951;
+  --brand: #075e54;
+  --brand-hover: color-mix(in srgb, #075e54, black 11%);
+  --brand-pressed: color-mix(in srgb, #075e54, white 10%);
+  --brand-on: #fffdf8;
+  --accent-ink: #07584f;
+  --subtle: color-mix(in srgb, var(--paper), var(--ink) 6%);
+  --hover: color-mix(in srgb, var(--paper), var(--ink) 11%);
+  --pressed: color-mix(in srgb, var(--paper), var(--ink) 16%);
+  --line: color-mix(in srgb, var(--paper), var(--ink) 19%);
+  --control-line: color-mix(in srgb, var(--paper), var(--muted) 56%);
+  --control-line-strong: var(--muted);
+  --focus: var(--accent-ink);
+  --success: #25573c;
+  --success-surface: #e1f0e7;
+  --success-line: #98b5a4;
+  --hero-surface: #eace82;
+  --hero-ink: #243129;
+  --hero-kicker: #3f4a34;
+  --hero-body: #393e30;
+  --photo-filter: saturate(.87) contrast(1.04);
+  --control-radius: 5px;
+  --panel-radius: 9px;
+  --elevation: 0 2px 4px #18232312, 0 8px 24px #18232320;
+  --hero-columns: 48% 52%;
+  --hero-min-height: clamp(285px, 28vw, 370px);
+  --hero-padding: clamp(24px, 4vw, 52px);
+  --hero-art-mobile-height: 166px;
+  --catalog-columns: 4;
+  --catalog-tablet-columns: 3;
+  --catalog-mobile-columns: 2;
+  --catalog-gap: clamp(8px, 1.3vw, 15px);
+  --catalog-image-ratio: 1.38;
+}
+
+:root[data-market-tone="aisle"] .hero { border: 2px solid var(--brand); }
+:root[data-market-tone="aisle"] .hero img { object-position: 54% 40%; }
+:root[data-market-tone="aisle"] .catalog-toolbar { padding-bottom: 10px; border-bottom: 2px solid var(--brand); }
+:root[data-market-tone="aisle"] .product-bottom strong { color: var(--accent-ink); font-weight: 850; }
