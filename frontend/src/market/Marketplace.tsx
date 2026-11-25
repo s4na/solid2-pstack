@@ -8,6 +8,7 @@ import {
 } from "./api";
 import { AccountForm, ActionButton, OrderList, ProductImage } from "./components";
 import { SellerPanel } from "./SellerPanel";
+import { ToneSwitcher } from "./ToneSwitcher";
 
 type Screen = "catalog" | "stores" | "orders" | "seller";
 type Cart = Record<number, number>;
@@ -321,6 +322,7 @@ export function Marketplace() {
               <button type="button" class="header-link seller-link" aria-current={screen() === "seller" ? "page" : undefined}
                 onClick={() => navigate("seller")}>出店者ページ</button>
             </div>
+            <ToneSwitcher />
           </div>
         </header>
         <div class="cart-dock">

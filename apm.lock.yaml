@@ -483,7 +483,7 @@ deployments:
   owners:
   - .
   active_owner: .
-  content_hash: sha256:3eaca9a171699bbdbaf76a3c331d21cbd8758d5834fc54660ee30e696c237f8d
+  content_hash: sha256:f28b417813cf1b2e3a51aaccc3ca46474ef900a6052bcaeb608ff618cbf6d01b
 - kind: project-relative
   target: codex
   value: .agents/skills/verify-solid2-pstack/features/notifications.md
@@ -507,5 +507,5 @@ local_deployed_file_hashes:
   .agents/skills/opening-a-pr/SKILL.md: sha256:25e4206372de152838ad94f70527980f2e9354694e7b0e600d323483f9a14e22
   .agents/skills/verify-solid2-pstack/SKILL.md: sha256:c990219f63c6a406fb12013ba75220aac7830508eb44cf4d543fc6593747ab31
   .agents/skills/verify-solid2-pstack/features/README.md: sha256:4a11c68794fe8344d563ffa4a5e0299319863c5e7f66919d30436ed35008d372
-  .agents/skills/verify-solid2-pstack/features/marketplace.md: sha256:3eaca9a171699bbdbaf76a3c331d21cbd8758d5834fc54660ee30e696c237f8d
+  .agents/skills/verify-solid2-pstack/features/marketplace.md: sha256:f28b417813cf1b2e3a51aaccc3ca46474ef900a6052bcaeb608ff618cbf6d01b
   .agents/skills/verify-solid2-pstack/features/notifications.md: sha256:bb70254c634ed110988f5fd90848dcb908f74241399e36e7646d638282c53bea
