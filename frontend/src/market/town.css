@@ -1,0 +1,65 @@
+.product-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+}
+.product-meta .store-reference { min-width: 0; overflow-wrap: anywhere; text-align: start; }
+.save-toggle, .event-toggle, .town-tab {
+  border: 1px solid var(--control-line);
+  border-radius: var(--control-radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+.save-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+.event-toggle, .town-tab {
+  min-height: var(--control-height);
+  padding: 7px 12px;
+  font-size: var(--action-size);
+}
+.save-toggle:hover, .event-toggle:hover, .town-tab:hover { background: var(--hover); }
+.save-toggle[aria-pressed="true"], .event-toggle[aria-pressed="true"], .town-tab[aria-selected="true"] {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--brand-on);
+}
+.town-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.town-events, .town-saved {
+  display: grid;
+  grid-template-columns: repeat(var(--town-columns), minmax(0, 1fr));
+  gap: 16px;
+}
+.town-events { --town-columns: 3; }
+.town-saved { --town-columns: 2; }
+.town-event {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.town-event h2, .town-saved h2 { font-family: var(--display-font); font-size: clamp(19px, 2.1vw, 25px); }
+.town-event > p { color: var(--muted); }
+.town-event .town-event-time { color: var(--accent-ink); font-size: 13px; font-weight: 700; }
+.town-event-time span { margin-inline-start: 10px; }
+.town-event .event-toggle { margin-top: auto; }
+.town-list { display: grid; gap: 10px; list-style: none; padding: 0; margin: 10px 0 0; }
+.town-saved-product { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 10px; }
+.town-saved-description, .town-saved-event { display: grid; justify-items: start; gap: 6px; overflow-wrap: anywhere; }
+.town-saved-product h3, .town-saved-event h3 { font-size: var(--product-title-size); }
+@media (max-width: 740px) {
+  .town-events, .town-saved { --town-columns: 1; }
+}
+@media (max-width: 350px) {
+  .site-nav { gap: 3px; }
+  .site-nav button { padding-inline: 6px; font-size: 12px; }
+}
