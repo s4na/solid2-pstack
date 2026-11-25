@@ -39,7 +39,7 @@ export function Town(props: {
                 <p>{event.detail}</p>
                 <Toggle class="event-toggle" aria-label={`${event.title}の参加予定`}
                   pressed={props.events.includes(event.id)} onPressedChange={(value) => props.planEvent(event.id, value)}>
-                  {props.events.includes(event.id) ? "参加予定 ✓" : "参加予定にする"}
+                  参加予定{props.events.includes(event.id) && <span aria-hidden="true"> ✓</span>}
                 </Toggle>
               </article>
             )}</For>
