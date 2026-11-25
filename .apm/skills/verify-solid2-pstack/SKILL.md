@@ -24,6 +24,7 @@ README の手順でロック済みの依存関係、APM Skill、Playwright Chrom
 | 振る舞いとモデル | `pnpm --dir frontend test` | Chromium の操作、fast-check の操作列、モデルと実装の全入力の照合 |
 | モデルだけ | `pnpm --dir frontend verify:model` | `frontend/models/Notifications.tla` が検証する4通りの遷移と `frontend/src/notifications.ts` の一致 |
 | 出店・購入 E2E | `pnpm --dir frontend test:market` | Docker の Go で出店、商品公開、注文、受注、在庫更新を確認 |
+| 商店街の見た目 | `sh frontend/scripts/build-pages.sh /solid2-pstack/` の後に `pnpm --dir frontend test:tones` | 全トンマナで商品・街・保存の3画面をスマホと PC で開き、axe-core の検査と横方向のはみ出しを確認し、HTML レポートに実画面を残す |
 | Go 注文テスト | `(cd backend && go test -race ./...)` | 在庫不足、価格変更、再送、同時注文時の挙動 |
 | 通知 E2E・Storybook | `pnpm --dir frontend test:e2e` | ビルドしたアプリのキーボード操作、Story の axe-core 検査、状態インジケーターの画像差分 |
 
