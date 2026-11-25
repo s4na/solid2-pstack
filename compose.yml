@@ -1,0 +1,28 @@
+name: solid2-marketplace
+services:
+  marketplace:
+    build:
+      context: ./backend
+      labels: &labels
+        ghq.managed: branch
+        ghq.purpose: development
+        ghq.repo: s4na/solid2-pstack
+        ghq.branch: ${MARKET_BRANCH:-local}
+    image: solid2-pstack-marketplace:${MARKET_IMAGE_TAG:-local}
+    labels: *labels
+    ports:
+      - "127.0.0.1:${MARKET_PORT:-8088}:8080"
+    environment:
+      DB_PATH: /data/marketplace.sqlite
+      STATIC_DIR: /www
+      DEMO_ACCOUNTS: ${DEMO_ACCOUNTS:-1}
+    volumes:
+      - marketplace-data:/data
+      - ./frontend/dist:/www:ro
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/api/health"]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+volumes:
+  marketplace-data:
