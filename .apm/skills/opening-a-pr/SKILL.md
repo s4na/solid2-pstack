@@ -5,6 +5,8 @@ description: solid2-pstack の変更を検証し、関連 Issue と検証結果�
 
 # Opening a PR
 
+Lauren Tan（poteto）の pstack にある [Opening a PR プレイブック](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/skills/poteto-mode/playbooks/opening-a-pr.md) をもとに、このリポジトリ向けに調整した Skill です。[上流の MIT ライセンス](LICENSE)
+
 1. 対象 Issue、ベースブランチ、差分、適用するリポジトリ指示を確認する。依頼と無関係な差分はコミットの対象から外す。
 2. 変更内容に応じて下の検証を行う。実行したコマンド、確認した振る舞い、結果、未確認の範囲を PR 本文に残す。
 3. コミット前に差分を見直す。実ブラウザで得た結果を優先し、テストはユーザーが観測できる振る舞いを確認する。必要に応じて APM の `principle-prove-it-works` と `principle-test-behavior-not-implementation` を読む。

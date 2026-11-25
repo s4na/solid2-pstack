@@ -1,4 +1,10 @@
-# よりみち商店街
+# Solid 2.0 × pstack 検証リポジトリ
+
+[Solid 2.0](https://www.solidjs.com/blog/solid-2-0-the-long-hold/) でアプリを実装し、[pstack](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/README.md) の開発手法を試すためのリポジトリです。人と AI エージェントが同じ手順で動作を再現し、振る舞いを検証できるかを、通知設定のサンプルと複数店舗のマーケットで試します。
+
+画面と操作は Storybook、Vitest Browser Mode、Playwright で確認します。通知設定では fast-check で操作列を検証し、TLA+ の状態遷移モデルと TypeScript の実装も照合します。pstack の検証・振り返り Skill は APM で導入します。
+
+## デモアプリ「よりみち商店街」
 
 Solid 2.0 と Go で動く、ローカルの複数店舗マーケットです。出店者はお店を開き、商品を公開して在庫と受注を管理できます。購入者は別のアカウントで複数のお店の商品をカートに入れ、まとめて注文できます。
 
@@ -65,8 +71,12 @@ apm install --frozen
 
 APM は pstack の選択した Skill を上流のコミットに固定し、このプロジェクトの Skill とともに `.agents/skills/` へ配置します。プロジェクトの Skill の正本は `.apm/skills/` です。Codex で PR を作る際は `$opening-a-pr` を呼び出します。 [Opening a PR](.apm/skills/opening-a-pr/SKILL.md)・[検証 Skill](.apm/skills/verify-solid2-pstack/SKILL.md)
 
-## 画面素材とデザイン
+## 出典と第三者ライセンス
 
-画面の写真は ImageGen で作成したローカル素材です。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](frontend/public/market/hero-cobalt.jpg)・[商品写真](frontend/public/market/catalog-cobalt.jpg)
+- **pstack** は Lauren Tan（[poteto](https://x.com/poteto)）さんのプロジェクトです。APM は [`cursor/plugins` の固定コミット](https://github.com/cursor/plugins/tree/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack) から Skill を取得し、上流の [MIT ライセンス](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/LICENSE) と一緒に配置します。
+- **PR 手順の Skill** は pstack の [Opening a PR プレイブック](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/skills/poteto-mode/playbooks/opening-a-pr.md) をもとに、このリポジトリの検証・レビュー手順に合わせたものです。[上流の著作権表示と MIT ライセンス全文](.apm/skills/opening-a-pr/LICENSE)を同梱しています。
+- **Geist Sans** は The Geist Project Authors による [v1.9.2 の可変フォント](https://github.com/vercel/geist-font/blob/v1.9.2/packages/next/dist/fonts/geist-sans/Geist-Variable.woff2) を同梱しています。[著作権表示と SIL Open Font License 1.1](frontend/public/market/fonts/OFL.txt) はフォントと同じディレクトリにあります。
+- **デザインの参考資料** は Vercel の [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) です。
+- **パッケージ依存**のバージョンは [フロントエンドのロックファイル](frontend/pnpm-lock.yaml) と [Go のモジュール定義](backend/go.mod) で確認できます。各依存パッケージにはそれぞれのライセンスが適用されます。
 
-画面の操作部品は [Geist Design System](https://vercel.com/geist/introduction) と [Web Interface Guidelines](https://vercel.com/design/guidelines) を参考にしています。Geist Sans v1.9.2 は同梱した [SIL Open Font License](frontend/public/market/fonts/OFL.txt) に従います。
+画面の写真はこのデモ用に ImageGen で生成しました。トップは「コバルトブルーのスタジオでアイボリーの陶器、琥珀色のキャンドル、レモン色のリネンを撮影」、商品写真は「マグ・キャンドル・リネン・皿を、それぞれ青や淡い黄色の背景で4分割撮影」という指示で生成しました。 [トップ画像](frontend/public/market/hero-cobalt.jpg)・[商品写真](frontend/public/market/catalog-cobalt.jpg)
