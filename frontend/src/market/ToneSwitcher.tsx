@@ -1,47 +1,47 @@
 import { SegmentedControl, SegmentedControlItem } from "@ui-sdk/solid/segmented-control";
-import { createSignal, For, onCleanup } from "solid-js";
+import { createSignal, For, onCleanup, Show } from "solid-js";
+import { loadTone, saveTone, toneIds, tones, type Tone } from "./tones";
 
-const tones = [
-  { id: "mono", label: "モノ" },
-  { id: "craft", label: "クラフト" },
-  { id: "night", label: "ナイト" },
-] as const;
-type Tone = (typeof tones)[number]["id"];
-
-const toneKey = "yorimichi-tone-v1";
-
-function savedTone(): Tone {
-  try {
-    const saved = localStorage.getItem(toneKey);
-    return tones.find(({ id }) => id === saved)?.id ?? "mono";
-  } catch {
-    return "mono";
-  }
-}
-
-export function ToneSwitcher() {
-  const [tone, setTone] = createSignal(savedTone());
+export function ToneSwitcher(props: { initialTone: Tone }) {
+  const [tone, setTone] = createSignal(props.initialTone);
+  const [loadFailed, setLoadFailed] = createSignal(false);
   const root = document.documentElement;
-  // Root-level tokens also reach any UI SDK content rendered outside the app root.
-  root.dataset.marketTone = tone();
-  onCleanup(() => delete root.dataset.marketTone);
+  let request = 0;
+  root.dataset.marketTone = props.initialTone;
+  onCleanup(() => {
+    request += 1;
+    delete root.dataset.marketTone;
+  });
 
-  function selectTone(next: Tone | null) {
+  async function selectTone(next: Tone | null) {
     if (next === null) return;
-    setTone(next);
-    root.dataset.marketTone = next;
+    const currentRequest = ++request;
+    setLoadFailed(false);
     try {
-      localStorage.setItem(toneKey, next);
+      await loadTone(next);
     } catch {
-      // The active page can still change its appearance.
+      if (currentRequest === request) setLoadFailed(true);
+      return;
     }
+    if (currentRequest !== request) return;
+
+    root.dataset.marketTone = next;
+    setTone(next);
+    saveTone(next);
   }
 
   return (
-    <SegmentedControl class="tone-switcher" aria-label="トンマナ" value={tone()} onValueChange={selectTone}>
-      <For each={tones}>{({ id, label }) => (
-        <SegmentedControlItem class="tone-option" value={id}>{label}</SegmentedControlItem>
-      )}</For>
-    </SegmentedControl>
+    <div class="tone-controls">
+      <SegmentedControl class="tone-switcher" aria-label="トンマナ" value={tone()} onValueChange={(next) => void selectTone(next)}>
+        <For each={toneIds}>{(id) => (
+          <SegmentedControlItem class="tone-option" value={id} onClick={() => {
+            if (id === tone()) void selectTone(id);
+          }}>{tones[id].label}</SegmentedControlItem>
+        )}</For>
+      </SegmentedControl>
+      <Show when={loadFailed()}>
+        <p class="tone-load-error" role="status">読み込めませんでした</p>
+      </Show>
+    </div>
   );
 }
