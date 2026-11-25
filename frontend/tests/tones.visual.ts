@@ -35,6 +35,17 @@ async function inspectScreen(page: Page, testInfo: TestInfo, screen: string) {
     });
     expect.soft(overflow, `${screen}でコンテンツが横にはみ出さない`).toEqual({ page: 0, clipped: [] });
 
+    const gutters = await page.locator(".town-events:visible, .town-saved:visible").evaluateAll((grids) =>
+      grids.map((grid) => {
+        const first = grid.children[0].getBoundingClientRect();
+        const second = grid.children[1].getBoundingClientRect();
+        return Math.max(second.left - first.right, second.top - first.bottom);
+      }),
+    );
+    for (const gutter of gutters) {
+      expect.soft(gutter, `${screen}の項目間の余白`).toBeGreaterThanOrEqual(12);
+    }
+
     const violations = await page.evaluate(async () => {
       const { violations } = await window.axe.run();
       return violations.map(({ id, nodes }) => ({

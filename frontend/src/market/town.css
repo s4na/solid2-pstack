@@ -37,7 +37,7 @@
 .town-events, .town-saved {
   display: grid;
   grid-template-columns: repeat(var(--town-columns), minmax(0, 1fr));
-  gap: var(--catalog-gap);
+  gap: max(12px, var(--catalog-gap, 16px));
 }
 .town-events { --town-columns: 3; }
 .town-saved { --town-columns: 2; }
