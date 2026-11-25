@@ -33,26 +33,36 @@ test("トンマナを切り替えても商品検索とカートが続き、再�
   const mono = tones.getByRole("radio", { name: "モノ" });
   const craft = tones.getByRole("radio", { name: "クラフト" });
   const night = tones.getByRole("radio", { name: "ナイト" });
-  const hero = page.locator(".hero");
-  const heroColor = () => hero.evaluate((element) => getComputedStyle(element).backgroundColor);
+  const heroTitle = page.getByRole("heading", { level: 1, name: /よりみち\s*商店街デモ/ });
+  const heroSize = () => heroTitle.evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
   await expect(mono).toBeChecked();
   await expect(night).toBeInViewport();
-  const monoColor = await heroColor();
+  const monoSize = await heroSize();
 
   await page.getByRole("button", { name: "出店者ページ" }).click();
   await publish(page, token, product, "1300");
   await page.getByRole("button", { name: "商品", exact: true }).click();
   const search = page.getByRole("searchbox", { name: "商品やお店を検索" });
   await search.fill(token);
+  const card = page.getByRole("article").filter({ has: page.getByRole("heading", { name: product, exact: true }) });
+  const image = card.getByRole("img");
+  const productTitle = card.getByRole("heading", { name: product, exact: true });
+  const monoImageWidth = await image.evaluate((element) => element.getBoundingClientRect().width);
   await page.getByRole("button", { name: `${product}をカートに入れる` }).click();
 
   await craft.click();
   await expect(craft).toBeChecked();
-  const craftColor = await heroColor();
+  const craftSize = await heroSize();
+  expect(craftSize).toBeLessThan(monoSize);
+  expect(await image.evaluate((element) => element.getBoundingClientRect().width)).toBeGreaterThan(monoImageWidth);
+
   await craft.press("ArrowRight");
   await expect(night).toBeChecked();
   await expect(night).toBeFocused();
-  expect(new Set([monoColor, craftColor, await heroColor()]).size).toBe(3);
+  expect(await heroSize()).toBeLessThan(craftSize);
+  const nightImageRight = await image.evaluate((element) => element.getBoundingClientRect().right);
+  const nightTitleLeft = await productTitle.evaluate((element) => element.getBoundingClientRect().left);
+  expect(nightTitleLeft).toBeGreaterThan(nightImageRight);
   await expect(search).toHaveValue(token);
 
   await page.getByRole("button", { name: /^カート/ }).click();
@@ -64,7 +74,7 @@ test("トンマナを切り替えても商品検索とカートが続き、再�
   await expect(page.getByRole("button", { name: /^カート/ })).toContainText("1点");
   await mono.click();
   await expect(tones.getByRole("radio", { checked: true })).toHaveText("モノ");
-  await expect.poll(heroColor).toBe(monoColor);
+  await expect.poll(heroSize).toBe(monoSize);
 });
 
 test("別々のお店で商品を公開し、購入者がまとめて注文できる", async ({ page }) => {
