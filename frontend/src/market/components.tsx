@@ -47,7 +47,7 @@ const actions = stylex.create({
     backgroundColor: { default: "var(--brand)", ":hover": "var(--brand-hover)", ":active": "var(--brand-pressed)" },
     color: "var(--brand-on)",
     fontFamily: "inherit",
-    fontSize: "14px",
+    fontSize: "var(--action-size)",
     fontWeight: 700,
     cursor: { default: "pointer", ":disabled": "not-allowed" },
     opacity: { default: 1, ":disabled": 0.52 },
