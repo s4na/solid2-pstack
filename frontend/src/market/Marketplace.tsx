@@ -9,6 +9,7 @@ import {
 import { AccountForm, ActionButton, OrderList, ProductImage } from "./components";
 import { SellerPanel } from "./SellerPanel";
 import { ToneSwitcher } from "./ToneSwitcher";
+import type { Tone } from "./tones";
 
 type Screen = "catalog" | "stores" | "orders" | "seller";
 type Cart = Record<number, number>;
@@ -45,7 +46,7 @@ function savedPurchase(): PendingPurchase | null {
   return null;
 }
 
-export function Marketplace(props: { preview: boolean }) {
+export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
   const base = import.meta.env.BASE_URL;
   const cartKey = props.preview ? "yorimichi-preview-cart-v1" : "yorimichi-cart-v1";
   const [screen, setScreen] = createSignal<Screen>("catalog");
@@ -330,7 +331,7 @@ export function Marketplace(props: { preview: boolean }) {
                   onClick={() => navigate("seller")}>出店者ページ</button>
               </Show>
             </div>
-            <ToneSwitcher />
+            <ToneSwitcher initialTone={props.initialTone} />
           </div>
         </header>
         <div class="cart-dock">

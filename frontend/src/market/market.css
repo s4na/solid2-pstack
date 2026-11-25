@@ -7,13 +7,14 @@
 }
 
 :root {
-  color-scheme: var(--market-color-scheme);
+  color-scheme: var(--market-color-scheme, light);
   scroll-padding-block-end: 128px;
-  background: var(--canvas);
-  color: var(--ink);
+  background: var(--canvas, #ffffff);
+  color: var(--ink, #171717);
   font-family: var(--market-font);
   font-weight: 400;
   line-height: 1.55;
+  --market-font: "Geist Sans", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
   --control-height: 40px;
   --numbers: tabular-nums;
 }
@@ -22,7 +23,7 @@
 button, input, select, textarea { font: inherit; }
 button { color: inherit; touch-action: manipulation; }
 button:disabled { cursor: not-allowed; }
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--focus, #171717); outline-offset: 3px; }
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { line-height: 1.35; }
 a { color: inherit; }
@@ -111,9 +112,10 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
   background: var(--subtle);
   color: var(--accent-ink);
 }
+.tone-controls { justify-self: end; }
+.tone-load-error { margin-top: 4px; color: var(--muted); font-size: 12px; }
 .tone-switcher {
   display: flex;
-  justify-self: end;
   gap: 3px;
   padding: 3px;
   border: 1px solid var(--control-line);
@@ -198,8 +200,6 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
 .site-main { min-height: calc(100vh - 150px); padding-top: 24px; }
 .hero {
   display: grid;
-  grid-template-columns: 54% 46%;
-  min-height: clamp(340px, 36vw, 466px);
   border-radius: var(--panel-radius);
   overflow: hidden;
   background: var(--hero-surface);
@@ -207,7 +207,6 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
 }
 .hero-copy {
   position: relative;
-  padding: clamp(28px, 4.5vw, 70px);
   align-self: center;
 }
 .hero-copy h1 {
@@ -295,13 +294,12 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
 .selection-action:hover:not(:disabled) { background: var(--hover); }
 .selection-action:active:not(:disabled) { background: var(--pressed); }
 .selection-action:disabled { background: var(--subtle); border-color: var(--line); color: var(--muted); }
-.product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 17px; }
+.product-grid { display: grid; }
 .product-card { min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--panel-radius); overflow: hidden; background: var(--paper); }
 .product-visual { position: relative; }
 .product-image {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1.22;
   width: 100%;
   background: var(--subtle);
 }
@@ -497,8 +495,6 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
   .header-inner, .site-main, .site-footer { width: calc(100% - 48px); }
   .header-inner { gap: 14px; }
   .header-actions { gap: 11px; }
-  .hero { grid-template-columns: 52% 48%; }
-  .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 840px) {
@@ -518,10 +514,7 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
   .site-nav button, .header-link { padding-inline: 9px; }
   .tone-option { min-height: 40px; padding-inline: 6px; }
   .site-main { padding-top: 14px; }
-  .hero { grid-template-columns: 1fr; }
-  .hero-copy { padding: 24px; }
   .hero-copy h1 { margin-block: 7px 10px; }
-  .hero-art { height: clamp(163px, 49vw, 225px); }
   .hero-action { margin-top: 13px; }
   .catalog-section { padding-top: 23px; }
   .section-heading, .catalog-toolbar, .work-title { flex-wrap: wrap; align-items: start; gap: 10px 14px; }
@@ -530,7 +523,6 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
   .product-select { width: 44px; height: 44px; }
   .category-filter button { min-height: var(--control-height); padding-inline: 9px; }
   .selection-action, .switcher button { min-height: var(--control-height); }
-  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
   .product-copy { padding: 9px; }
   .store-grid, .seller-grid { grid-template-columns: 1fr; }
   .panel { padding: 16px; }
@@ -538,5 +530,5 @@ a.header-link { display: inline-flex; align-items: center; text-decoration: none
 }
 
 @media (max-width: 350px) {
-  .header-actions, .tone-switcher { grid-column: 1 / -1; }
+  .header-actions, .tone-controls { grid-column: 1 / -1; }
 }

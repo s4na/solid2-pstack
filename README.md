@@ -20,6 +20,8 @@ Solid 2.0 と Go で、架空の複数店舗マーケットをローカルで体
 
 ヘッダー右側でトンマナを切り替え、同じ商品と UI SDK の操作を見比べられます。モノは大きな太字見出しと白黒写真の雑誌風、クラフトは明朝体と大きな正方形写真のカタログ風、ナイトは写真に文字を重ねたトップと横長の商品カードが特徴です。最後の選択は使っているブラウザに保存されます。
 
+各トンマナの配色・書体・レイアウトは [mono.css](frontend/src/market/tones/mono.css)・[craft.css](frontend/src/market/tones/craft.css)・[night.css](frontend/src/market/tones/night.css) にまとめています。商店街は初回表示に必要なCSSだけを読み込み、別のトンマナは初めて選んだときに読み込みます。
+
 Solid の画面とブラウザ検証は `frontend/`、Go API と SQLite の定義は `backend/` にあります。以下のコマンドはリポジトリのルートから実行します。
 
 ## Mac で起動する

@@ -77,6 +77,35 @@ test("トンマナを切り替えても商品検索とカートが続き、再�
   await expect.poll(heroSize).toBe(monoSize);
 });
 
+test("選んだトンマナのCSSを個別に読み込み、失敗しても再試行できる", async ({ page }) => {
+  const toneCss = /\/(mono|craft|night)(?:-[\w-]+)?\.css(?:\?|$)/;
+  const requestedTones: string[] = [];
+  page.on("request", (request) => {
+    const match = toneCss.exec(request.url());
+    if (match) requestedTones.push(match[1]);
+  });
+  await page.route(/\/craft(?:-[\w-]+)?\.css(?:\?|$)/, (route) => route.abort(), { times: 1 });
+
+  await page.goto("/");
+  const picker = page.getByRole("radiogroup", { name: "トンマナ" });
+  const mono = picker.getByRole("radio", { name: "モノ" });
+  const craft = picker.getByRole("radio", { name: "クラフト" });
+  const error = page.getByText("読み込めませんでした", { exact: true });
+  await expect(mono).toBeChecked();
+  expect(requestedTones).toEqual(["mono"]);
+
+  await craft.click();
+  await expect(error).toBeVisible();
+  await expect(mono).toBeChecked();
+
+  await craft.click();
+  await expect(craft).toBeChecked();
+  await expect(error).toBeHidden();
+  await mono.click();
+  await expect(mono).toBeChecked();
+  expect(requestedTones).toEqual(["mono", "craft", "craft"]);
+});
+
 test("別々のお店で商品を公開し、購入者がまとめて注文できる", async ({ page }) => {
   const token = randomUUID().slice(0, 8);
   const cup = `検証カップ ${token}`;

@@ -1,0 +1,69 @@
+:root[data-market-tone="mono"] {
+  --market-color-scheme: light;
+  --display-font: var(--market-font);
+  --hero-title-size: clamp(44px, 6.8vw, 92px);
+  --hero-title-weight: 840;
+  --hero-title-tracking: -0.075em;
+  --section-title-size: clamp(31px, 4.1vw, 54px);
+  --product-title-size: clamp(16px, 1.65vw, 21px);
+  --product-description-size: 13px;
+  --price-size: clamp(16px, 1.8vw, 23px);
+  --action-size: 14px;
+  --canvas: #ffffff;
+  --paper: #ffffff;
+  --ink: #171717;
+  --muted: #525252;
+  --brand: #0a0a0a;
+  --brand-hover: #292929;
+  --brand-pressed: #404040;
+  --brand-on: #ffffff;
+  --accent-ink: var(--brand-pressed);
+  --subtle: #f5f5f5;
+  --hover: #ededed;
+  --pressed: #e2e2e2;
+  --line: #e5e5e5;
+  --control-line: #c7c7c7;
+  --control-line-strong: #8b8b8b;
+  --focus: #171717;
+  --success: #171717;
+  --success-surface: #f2f2f2;
+  --success-line: #c7c7c7;
+  --hero-surface: #f3f3f1;
+  --hero-ink: #171717;
+  --hero-kicker: #525252;
+  --hero-body: #404040;
+  --photo-filter: grayscale(1) contrast(1.04);
+  --control-radius: 3px;
+  --panel-radius: 0px;
+  --elevation: 0 2px 4px #00000012, 0 8px 22px #0000001c;
+}
+
+:root[data-market-tone="mono"] .hero {
+  grid-template-columns: 54% 46%;
+  min-height: clamp(340px, 36vw, 466px);
+}
+
+:root[data-market-tone="mono"] .hero-copy {
+  padding: clamp(28px, 4.5vw, 70px);
+}
+
+:root[data-market-tone="mono"] .product-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+}
+
+:root[data-market-tone="mono"] .product-card .product-image {
+  aspect-ratio: 1.22;
+}
+
+@media (max-width: 900px) {
+  :root[data-market-tone="mono"] .hero { grid-template-columns: 52% 48%; }
+  :root[data-market-tone="mono"] .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  :root[data-market-tone="mono"] .hero { grid-template-columns: minmax(0, 1fr); }
+  :root[data-market-tone="mono"] .hero-copy { padding: 24px; }
+  :root[data-market-tone="mono"] .hero-art { height: clamp(163px, 49vw, 225px); }
+  :root[data-market-tone="mono"] .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+}
