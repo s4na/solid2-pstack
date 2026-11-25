@@ -71,7 +71,11 @@ apm install --frozen
 
 APM は pstack の選択した Skill を上流のコミットに固定し、このプロジェクトの Skill とともに `.agents/skills/` へ配置します。プロジェクトの Skill の正本は `.apm/skills/` です。Codex で PR を作る際は `$opening-a-pr` を呼び出します。 [Opening a PR](.apm/skills/opening-a-pr/SKILL.md)・[検証 Skill](.apm/skills/verify-solid2-pstack/SKILL.md)
 
-## 出典と第三者ライセンス
+## ライセンス
+
+このリポジトリのオリジナル部分は [MIT License](LICENSE) で公開しています。第三者の素材と依存パッケージには、それぞれのライセンスが適用されます。
+
+### 出典と第三者ライセンス
 
 - **pstack** は Lauren Tan（[poteto](https://x.com/poteto)）さんのプロジェクトです。APM は [`cursor/plugins` の固定コミット](https://github.com/cursor/plugins/tree/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack) から Skill を取得し、上流の [MIT ライセンス](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/LICENSE) と一緒に配置します。
 - **PR 手順の Skill** は pstack の [Opening a PR プレイブック](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/skills/poteto-mode/playbooks/opening-a-pr.md) をもとに、このリポジトリの検証・レビュー手順に合わせたものです。[上流の著作権表示と MIT ライセンス全文](.apm/skills/opening-a-pr/LICENSE)を同梱しています。
