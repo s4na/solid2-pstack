@@ -6,4 +6,5 @@ import "./market/market-tones.css";
 import "./market/market.css";
 
 const notificationDemo = location.pathname === "/notification-demo";
+if (notificationDemo) document.title = "通知設定デモ";
 render(() => notificationDemo ? <NotificationSettings /> : <Marketplace />, document.getElementById("app")!);
