@@ -1,12 +1,14 @@
 # Solid 2.0 × pstack 検証リポジトリ
 
+**公開デモ（GitHub Pages）** [https://s4na.github.io/solid2-pstack/](https://s4na.github.io/solid2-pstack/)
+
 [Solid 2.0](https://www.solidjs.com/blog/solid-2-0-the-long-hold/) でアプリを実装し、[pstack](https://github.com/cursor/plugins/blob/005d8f6e8ec057b738adcd08a08b30db0478402d/pstack/README.md) の開発手法を試すためのリポジトリです。人と AI エージェントが同じ手順で動作を再現し、振る舞いを検証できるかを、通知設定のサンプルと複数店舗のマーケットで試します。
 
 画面と操作は Storybook、Vitest Browser Mode、Playwright で確認します。通知設定では fast-check で操作列を検証し、TLA+ の状態遷移モデルと TypeScript の実装も照合します。pstack の検証・振り返り Skill は APM で導入します。
 
 ## GitHub Pages の公開デモ
 
-[よりみち商店街デモ](https://s4na.github.io/solid2-pstack/) では、架空の店舗・商品の閲覧、検索、カート、トンマナの切り替えを試せます。[通知設定デモ](https://s4na.github.io/solid2-pstack/notification-demo/) も公開しています。注文や出店は下記のローカル版で体験できます。
+よりみち商店街デモでは、架空の店舗・商品の閲覧、検索、カート、トンマナの切り替えを試せます。[通知設定デモ](https://s4na.github.io/solid2-pstack/notification-demo/) も公開しています。注文や出店は下記のローカル版で体験できます。
 
 `main` の更新時に、GitHub Actions の [GitHub Pages ワークフロー](.github/workflows/pages.yml) がフロントエンドと公開用の商品データをビルドして公開します。商品データはローカル版と同じデモデータから生成されます。
 
