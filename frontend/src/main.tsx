@@ -4,6 +4,7 @@ import { Marketplace } from "./market/Marketplace";
 import { loadInitialTone } from "./market/tones";
 import "./reset.css";
 import "./market/market.css";
+import "./market/town.css";
 
 const notificationPath = `${import.meta.env.BASE_URL}notification-demo`;
 const notificationDemo = location.pathname === notificationPath || location.pathname === `${notificationPath}/`;

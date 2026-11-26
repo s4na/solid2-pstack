@@ -9,9 +9,11 @@ import {
 import { AccountForm, ActionButton, OrderList, ProductImage } from "./components";
 import { SellerPanel } from "./SellerPanel";
 import { ToneSwitcher } from "./ToneSwitcher";
+import { ProductSave, Town } from "./Town";
 import type { Tone } from "./tones";
+import { createTownSaves } from "./townSaves";
 
-type Screen = "catalog" | "stores" | "orders" | "seller";
+type Screen = "catalog" | "stores" | "town" | "orders" | "seller";
 type Cart = Record<number, number>;
 type CheckoutItem = { productId: number; unitPrice: number; quantity: number };
 type PendingPurchase = { buyerId: number; signature: string; requestKey: string; items: CheckoutItem[] };
@@ -49,6 +51,7 @@ function savedPurchase(): PendingPurchase | null {
 export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
   const base = import.meta.env.BASE_URL;
   const cartKey = props.preview ? "yorimichi-preview-cart-v1" : "yorimichi-cart-v1";
+  const { saves, saveProduct, planEvent } = createTownSaves(props.preview);
   const [screen, setScreen] = createSignal<Screen>("catalog");
   const [catalog, setCatalog] = createSignal<Catalog>({ stores: [], products: [] });
   const [session, setSession] = createSignal<Session>({ buyer: null, seller: null });
@@ -322,6 +325,7 @@ export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
             <nav class="site-nav" aria-label="メインメニュー">
               <button type="button" aria-current={screen() === "catalog" ? "page" : undefined} onClick={() => shop()}>商品</button>
               <button type="button" aria-current={screen() === "stores" ? "page" : undefined} onClick={() => navigate("stores")}>お店</button>
+              <button type="button" aria-current={screen() === "town" ? "page" : undefined} onClick={() => navigate("town")}>街</button>
             </nav>
             <div class="header-actions">
               <Show when={!props.preview} fallback={<a class="header-link" href={`${base}notification-demo/`}>通知設定デモ</a>}>
@@ -440,7 +444,7 @@ export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
       <main id="content" class="site-main">
         <div class="sr-only" role="status">{announcement()}</div>
         <Show when={props.preview}>
-          <p class="notice muted">公開プレビューでは商品選びとカートを体験できます。注文や出店はローカル版で試せます。</p>
+          <p class="notice muted">公開プレビューでは商品選び・カート・街の予定を体験できます。注文や出店はローカル版で試せます。</p>
         </Show>
         <Show when={screenError()}><p class="notice error" role="alert">{screenError()}</p></Show>
         <Switch>
@@ -453,9 +457,9 @@ export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
             }>
               <section class="hero" aria-labelledby="hero-title">
                 <div class="hero-copy">
-                  <p class="hero-kicker">小さなお店のマーケット</p>
+                  <p class="hero-kicker">買い物と街の予定</p>
                   <h1 id="hero-title">よりみち<br />商店街デモ</h1>
-                  <p>器、香り、暮らしの道具。<br />{props.preview ? "架空のお店で、商品選びを体験できます。" : "架空のお店で、買い物や出店を体験できます。"}</p>
+                  <p>架空のお店で商品を選び、気になる商品や街のイベントを保存できます。</p>
                   <a class="hero-action" href="#products">商品を探す<span aria-hidden="true">↘</span></a>
                 </div>
                 <div class="hero-art"><img src={`${base}market/hero-cobalt.jpg`} alt="" fetchpriority="high" /></div>
@@ -502,7 +506,11 @@ export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
                           </label>
                         </div>
                         <div class="product-copy">
-                          <button class="store-reference" type="button" onClick={() => shop(product.storeId)}>{product.storeName}</button>
+                          <div class="product-meta">
+                            <button class="store-reference" type="button" onClick={() => shop(product.storeId)}>{product.storeName}</button>
+                            <ProductSave name={product.name} saved={saves().products.includes(product.id)}
+                              onChange={(saved) => saveProduct(product.id, saved)} />
+                          </div>
                           <h3>{product.name}</h3>
                           <p>{product.description}</p>
                           <div class="product-bottom">
@@ -543,6 +551,13 @@ export function Marketplace(props: { preview: boolean; initialTone: Tone }) {
                 </For>
               </div>
             </section>
+          </Match>
+          <Match when={screen() === "town"}>
+            <Town products={catalog().products.filter((product) => saves().products.includes(product.id))}
+              events={saves().events} saveProduct={saveProduct} planEvent={planEvent} showProduct={(product) => {
+                shop(product.storeId);
+                setSearch(product.name);
+              }} />
           </Match>
           <Match when={screen() === "seller"}>
             <SellerPanel seller={session().seller} dashboard={dashboard()} refresh={refreshSeller}

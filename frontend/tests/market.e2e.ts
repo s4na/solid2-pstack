@@ -135,6 +135,41 @@ test("スマホ幅で追加の10種類を一覧から選び、再読み込み後
   await expect(more).toHaveText(/ほか/);
 });
 
+test("街の保存リストで商品と参加予定を見返し、再読み込み後に外せる", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const token = randomUUID().slice(0, 8);
+  const product = `保存する器 ${token}`;
+  await page.goto("/");
+  await page.getByRole("button", { name: "出店者ページ" }).click();
+  await publish(page, token, product, "1300");
+  await page.getByRole("button", { name: "商品", exact: true }).click();
+  const save = page.getByRole("button", { name: `${product}を保存` });
+  await save.click();
+  await expect(save).toHaveAttribute("aria-pressed", "true");
+
+  const town = page.getByRole("button", { name: "街", exact: true });
+  const list = page.getByRole("tab", { name: "保存リスト" });
+  const event = page.getByRole("button", { name: "器のお手入れ会の参加予定" });
+  await town.click();
+  await event.click();
+  await expect(event).toHaveAttribute("aria-pressed", "true");
+  await list.click();
+  await expect(page.getByRole("heading", { name: product, exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "器のお手入れ会" })).toBeVisible();
+  await page.getByRole("button", { name: "商品を見る" }).click();
+  await expect(page.getByRole("searchbox")).toHaveValue(product);
+
+  await page.reload();
+  await town.click();
+  await expect(event).toHaveAttribute("aria-pressed", "true");
+  await list.click();
+  await expect(save).toHaveAttribute("aria-pressed", "true");
+  await save.click();
+  await page.getByRole("button", { name: "予定から外す" }).click();
+  await expect(page.getByRole("heading", { name: product, exact: true })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "器のお手入れ会" })).toHaveCount(0);
+});
+
 test("別々のお店で商品を公開し、購入者がまとめて注文できる", async ({ page }) => {
   const token = randomUUID().slice(0, 8);
   const cup = `検証カップ ${token}`;
