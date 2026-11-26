@@ -37,7 +37,7 @@
 .town-events, .town-saved {
   display: grid;
   grid-template-columns: repeat(var(--town-columns), minmax(0, 1fr));
-  gap: 16px;
+  gap: max(12px, var(--catalog-gap, 16px));
 }
 .town-events { --town-columns: 3; }
 .town-saved { --town-columns: 2; }
@@ -46,6 +46,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  background: var(--town-event-surface, var(--paper));
 }
 .town-event h2, .town-saved h2 { font-family: var(--display-font); font-size: clamp(19px, 2.1vw, 25px); }
 .town-event > p { color: var(--muted); }
